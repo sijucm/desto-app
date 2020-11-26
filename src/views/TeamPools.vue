@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="container">
+      <div>This is now changed - 1</div>
 
       <div>Pool 1</div>
       <div v-for="(team, index) in pool1" class="row" :key="index">
@@ -39,8 +40,8 @@ export default {
   },
   computed: {
     ...mapState('teampools', {
-      pool1: state => state.pools.pool1,
-      pool5: state => state.pools.pool5
+      pool1: state => state.teampools.pools.pool1,
+      pool5: state => state.teampools.pools.pool5
     }),
 
   }
