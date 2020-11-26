@@ -1,106 +1,62 @@
+import axios from "axios";
 export default {
-    namespaced: true,
-    state: {
-      dataProcessing: {
-        agreeToICSDataProcessing: true,
-        agreeICSTermsAndConditions: false,
-      },
-      personalData: {
-        isDataCorrectCustomerInput: false,
-      },
-      family: {
-        status: 'SIN',
-        minorChildren: 0,
-        netIncomePartner: 0,
-        monthlyAlimony: false,
-      },
-      income: {
-        company: {
-          nameOfBusiness: '',
-          kvkNumber: '',
-          dateOfEstablishment: '',
-        },
-        netIncome: 100,
-        status: 'EMPFIX',
-      },
-      cardType: {
-        settlementType: 'SELF',
-        cardType: {
-          productCode: 'YAG',
-          limit: 0,
-        },
-        settlementAccountNumber: '',
-      },
-    },
-    mutations: {
-      updatePersonalDataCustomerAgreement(state, isDataComplete) {
-        state.personalData.isDataCorrectCustomerInput = isDataComplete;
-      },
-      addCardSettlementType(state, settlementType) {
-        state.cardType.settlementType = settlementType;
-      },
-      addCardType(state, cardType) {
-        state.cardType.cardType = cardType;
-      },
-      addSettlementAccountNumber(state, accountNumber) {
-        state.cardType.settlementAccountNumber = accountNumber;
-      },
-      updateFamilyStatus(state, status) {
-        state.family.status = status;
-      },
-      updateMinorChildren(state, minorChildren) {
-        state.family.minorChildren = minorChildren;
-      },
-      updateNetIncomePartner(state, netIncomePartner) {
-        state.family.netIncomePartner = netIncomePartner;
-      },
-      updateMonthlyAlimony(state, payAlimony) {
-        state.family.monthlyAlimony = payAlimony;
-      },
-      updateNameOfBusiness(state, nameOfBusiness) {
-        state.income.company.nameOfBusiness = nameOfBusiness;
-      },
-      updateKVKNumber(state, kvkNumber) {
-        state.income.company.kvkNumber = kvkNumber;
-      },
-      updateDateOfEstablishment(state, dateOfEstablishment) {
-        state.income.company.dateOfEstablishment = dateOfEstablishment;
-      },
-      updateNetIncome(state, netIncome) {
-        state.income.netIncome = netIncome;
-      },
-      updateIncomeStatus(state, status) {
-        state.income.status = status;
-      },
-    },
-  
-    actions: {
-  
-    },
-    getters: {
-      isCreditCardTypeDataComplete: (state) => {
-        if (state.cardType.cardType.productCode === ''
-          || state.cardType.settlementType === '') {
-          return false;
+  namespaced: true,
+  state: {
+    week: 1,
+    pools: {
+      pool5: [
+        {
+          team: "J09-5",
+          wins: 2,
+          draws: 1,
+          points: 5
         }
-  
-        return !(state.cardType.settlementType === 'DD'
-          && state.cardType.settlementAccountNumber === '');
-      },
-      isPersonalDataComplete(state) {
-        return state.personalData.isDataCorrectCustomerInput
-          && state.dataProcessing.agreeToICSDataProcessing;
-      },
-      isCCRequestComplete(state, getters) {
-        return getters.isPersonalDataComplete
-          && getters.isCreditCardTypeDataComplete
-        && state.dataProcessing.agreeICSTermsAndConditions;
-      },
-      getSpendingLimit(state) {
-        return state.cardType.cardType === 'YAG' ? 5000 : 2500;
-      },
-  
+      ],
     },
-  
-  };
-  
+    "id": "week1",
+    "_rid": "YQNrAP0Cz9MBAAAAAAAAAA==",
+    "_self": "dbs/YQNrAA==/colls/YQNrAP0Cz9M=/docs/YQNrAP0Cz9MBAAAAAAAAAA==/",
+    "_etag": "\"cd010e9a-0000-0100-0000-5fbe6d180000\"",
+    "_attachments": "attachments/",
+    "_ts": 1606315288
+  },
+  mutations: {
+    updateData(state, data) {
+      state.customerData = data;
+    },
+  },
+
+  actions: {
+    getData({ commit }) {
+      axios.get('/api/GetTeamPools')
+      .then((results) => commit('updateData', results.data))
+      .catch(console.error);
+    },
+
+  },
+  getters: {
+    isCreditCardTypeDataComplete: (state) => {
+      if (state.cardType.cardType.productCode === ''
+          || state.cardType.settlementType === '') {
+        return false;
+      }
+
+      return !(state.cardType.settlementType === 'DD'
+          && state.cardType.settlementAccountNumber === '');
+    },
+    isPersonalDataComplete(state) {
+      return state.personalData.isDataCorrectCustomerInput
+          && state.dataProcessing.agreeToICSDataProcessing;
+    },
+    isCCRequestComplete(state, getters) {
+      return getters.isPersonalDataComplete
+          && getters.isCreditCardTypeDataComplete
+          && state.dataProcessing.agreeICSTermsAndConditions;
+    },
+    getSpendingLimit(state) {
+      return state.cardType.cardType === 'YAG' ? 5000 : 2500;
+    },
+
+  },
+
+};
