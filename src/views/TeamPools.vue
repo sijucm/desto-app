@@ -1,6 +1,20 @@
 <template>
   <div>
-    Team pools
+    <div class="container">
+
+      <div>Pool 1</div>
+      <div v-for="(team, index) in pool1" class="row" :key="index">
+        <div>{{index+1}}: {{team.team}}</div>
+      </div>
+
+      <div>Pool 5</div>
+      <div v-for="(team, index) in pool5" class="row" :key="index">
+        <div>{{index+1}}: {{team.team}}</div>
+      </div>
+
+    </div>
+
+
   </div>
 
 </template>
@@ -8,23 +22,27 @@
 <script>
 
 
-import {mapActions} from "vuex";
+import {mapActions, mapState} from "vuex";
 
 export default {
   components: {},
   name: 'TeamPools',
   created() {
-    // this.$store.state.stepState.currentStep = 3;
-    //console.log(this.$store)
-    // this.$store.dispatch('loadData') // dispatch loading
-    // this.getData();
-    console.log(this.$store)
+    // this.$store.dispatch("teampools/loadData")
+    this.loadData();
   },
 
-  computed: {
+  methods:{
     ...mapActions('teampools', [
-      'getData',
+      'loadData',
     ]),
+  },
+  computed: {
+    ...mapState('teampools', {
+      pool1: state => state.pools.pool1,
+      pool5: state => state.pools.pool5
+    }),
+
   }
 };
 </script>

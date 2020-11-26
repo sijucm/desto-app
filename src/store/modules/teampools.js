@@ -22,12 +22,12 @@ export default {
   },
   mutations: {
     updateData(state, data) {
-      state.customerData = data;
+      state = data;
     },
   },
 
   actions: {
-    getData({ commit }) {
+    loadData({ commit }) {
       axios.get('/api/GetTeamPools')
       .then((results) => commit('updateData', results.data))
       .catch(console.error);
