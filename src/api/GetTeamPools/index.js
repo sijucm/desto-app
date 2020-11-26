@@ -1,6 +1,10 @@
 module.exports = async function (context, req) {
   context.log('JavaScript HTTP trigger function processed a request.');
 
+  const connectionString = process.env.ToTest;
+
+  context.log('ToTest value is : '+connectionString);
+
   const responseMessage = {
     week: 1,
     pools: {
@@ -25,6 +29,6 @@ module.exports = async function (context, req) {
 
   context.res = {
     // status: 200, /* Defaults to 200 */
-    body: responseMessage
+    body:context.bindings.teampools
   };
 }

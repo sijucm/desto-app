@@ -14,6 +14,15 @@
       "type": "http",
       "direction": "out",
       "name": "res"
+    },
+    {
+      "name": "teampools",
+      "type": "cosmosDB",
+      "direction": "in",
+      "databaseName": "WeekData",
+      "collectionName": "Teampool",
+      "sqlQuery": "SELECT c.week, c.pools FROM c where c.id='week1'",
+      "connectionStringSetting": "CosmosDBConnection"
     }
   ]
 }
