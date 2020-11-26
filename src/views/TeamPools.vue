@@ -4,12 +4,12 @@
       <div>This is now changed - 1</div>
 
       <div>Pool 1</div>
-      <div v-for="(team, index) in pool1" class="row" :key="index">
+      <div v-for="(team, index) in pool1" class="row" :key="team.team">
         <div>{{index+1}}: {{team.team}}</div>
       </div>
 
       <div>Pool 5</div>
-      <div v-for="(team, index) in pool5" class="row" :key="index">
+      <div v-for="(team, index) in pool5" class="row" :key="team.team">
         <div>{{index+1}}: {{team.team}}</div>
       </div>
 
@@ -40,8 +40,8 @@ export default {
   },
   computed: {
     ...mapState('teampools', {
-      pool1: state => state.teampools.pools.pool1,
-      pool5: state => state.teampools.pools.pool5
+      pool1: state => state&&state.data&&state.data.pools?state.data.pools.pool1:{},
+      pool5: state => state&&state.data&&state.data.pools?state.data.pools.pool5:{}
     }),
 
   }

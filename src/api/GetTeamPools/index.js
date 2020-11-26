@@ -1,9 +1,8 @@
 module.exports = async function (context, req) {
-    context.log('JavaScript HTTP trigger function processed a request.');
+  context.log('JavaScript HTTP trigger function processed a request.');
 
-    const name = (req.query.name || (req.body && req.body.name));
-    const responseMessage = {
-        week: 1,
+  const responseMessage = {
+    week: 1,
     pools: {
       pool1: [
         {
@@ -13,11 +12,19 @@ module.exports = async function (context, req) {
           points: 5
         }
       ],
+      pool5: [
+        {
+          team: 'J09-5 - Data from API',
+          wins: 2,
+          draws: 1,
+          points: 5
+        }
+      ],
     }
-};
+  };
 
-    context.res = {
-        // status: 200, /* Defaults to 200 */
-        body: responseMessage
-    };
+  context.res = {
+    // status: 200, /* Defaults to 200 */
+    body: responseMessage
+  };
 }
