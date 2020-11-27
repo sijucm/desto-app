@@ -9,7 +9,7 @@ export default new Vuex.Store({
     currentWeek:'1',
     poolNames:{
       1:'Premier League: Poule 1',
-      2:'Permier League: Poule 2',
+      2:'Premier League: Poule 2',
       3:'Primera division: Poule 1',
       4:'Primera division: Poule 2',
       5:'Eredivisie: Poule 1',
