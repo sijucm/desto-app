@@ -6,9 +6,9 @@
       "direction": "in",
       "name": "req",
       "methods": [
-        "get",
-        "post"
-      ]
+        "get"
+      ],
+      "route": "teamPools/{partitionKeyValue}/{id}"
     },
     {
       "type": "http",
@@ -20,8 +20,9 @@
       "type": "cosmosDB",
       "direction": "in",
       "databaseName": "WeekData",
-      "collectionName": "Teampool",
-      "sqlQuery": "SELECT c.week, c.pools FROM c where c.id='week1'",
+      "collectionName": "TeamPool",
+      "id": "{id}",
+      "partitionKey": "{partitionKeyValue}",
       "connectionStringSetting": "CosmosDBConnection"
     }
   ]
