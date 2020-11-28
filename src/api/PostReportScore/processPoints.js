@@ -84,8 +84,8 @@ module.exports = async function (context, matchId, poolName, matchData,
   poolData.sort(
       (a, b) => {
         const v = b.standings.points - a.standings.points
-            || (a.standings.gf
-                - a.standings.ga) - (b.standings.gf - b.standings.ga)
+            ||  (b.standings.gf - b.standings.ga) - (a.standings.gf
+                - a.standings.ga)
             || b.standings.gf - a.standings.gf;
         return v;
       }

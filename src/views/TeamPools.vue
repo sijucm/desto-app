@@ -1,8 +1,12 @@
 <template>
 
   <div>
-    <pool-list/>
+    <a class="float-right" href="/.auth/login/aad">Login for admin rights</a>
+<br>
+<div>
 
+    <pool-list/>
+</div>
 
   </div>
 
