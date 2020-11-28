@@ -34,6 +34,25 @@
       "createIfNotExists": false,
       "collectionName": "MatchEvents",
       "connectionStringSetting": "CosmosDBConnection"
+    },
+    {
+      "name": "teamPools",
+      "type": "cosmosDB",
+      "direction": "in",
+      "databaseName": "WeekData",
+      "collectionName": "TeamPool",
+      "id": "{weekName}",
+      "partitionKey": "{weekNumber}",
+      "connectionStringSetting": "CosmosDBConnection"
+    },
+
+    {
+      "name": "teamPoolsUpdate",
+      "type": "cosmosDB",
+      "direction": "out",
+      "databaseName": "WeekData",
+      "collectionName": "TeamPool",
+      "connectionStringSetting": "CosmosDBConnection"
     }
   ]
 }

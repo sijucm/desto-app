@@ -1,41 +1,45 @@
-module.exports = async function (context, req,  matchData) {
-    context.log('JavaScript HTTP trigger function processed a request.');
+const processPoints = require('./processPoints.js');
 
-    if (req.body) {
+module.exports = async function (context, req, matchData, teamPools) {
+  context.log('JavaScript HTTP trigger function processed a request.');
 
-        // var week = context.bindingData.week;
-        var matchId = context.bindingData.matchId;
+  if (req.body) {
 
-        const poolName = 'pool'+matchId.substring(0,1);
-        const data = matchData;
-        var result = data [poolName].filter(obj => {
-            return obj.id === matchId
-        })
+    // var week = context.bindingData.week;
+    var matchId = context.bindingData.matchId;
 
-        if(result && result.length > 0) {
+    const poolName = 'pool' + matchId.substring(0, 1);
+    const data = matchData;
 
-            result[0]['results'] = req.body;
+    var matchObj = data [poolName].filter(obj => {
+      return obj.id === matchId
+    })
 
-            context.bindings.matchDataUpdated = data;
+    if (matchObj && matchObj.length > 0) {
 
-            context.res = {
-                body: data
-            };
+      matchObj[0]['results'] = req.body;
 
-        }else{
-            context.res = {
-                status: 500,
-                body: "Cannot idenitfy the match"
-            };
-        }
+      context.bindings.matchDataUpdated = data;
+
+      context.res = {
+        body: data
+      };
+
+      context.log(
+          await processPoints(context, matchId, poolName, data, teamPools));
+
     } else {
-        context.res = {
-            status: 400,
-            body: "Please pass a name in the request body"
-        };
+      context.res = {
+        status: 500,
+        body: "Cannot idenitfy the match"
+      };
     }
+  } else {
+    context.res = {
+      status: 400,
+      body: "Please pass a name in the request body"
+    };
+  }
 
-
-
-    // context.done;
+  // context.done;
 }

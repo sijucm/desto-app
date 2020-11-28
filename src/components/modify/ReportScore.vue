@@ -44,7 +44,7 @@ export default {
   name: "ReportScore",
   data() {
     return {
-      team0: '', team1: '', remarks: ''
+      team0: 0, team1: 0, remarks: ''
     }
   },
   props: {
@@ -60,9 +60,10 @@ export default {
     reportScore() {
 
       const data = {};
-      data[this.match.teams[0]] = this.team0;
-      data[this.match.teams[1]] = this.team1;
+      data[this.match.teams[0]] = parseInt(this.team0);
+      data[this.match.teams[1]] = parseInt(this.team1);
 
+      console.log("date being sent"+ JSON.stringify(data));
 
       axios.post('/api/score/1/week' + 1 + '/' + this.match.id, data)
       .then((results) => {

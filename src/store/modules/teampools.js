@@ -11,7 +11,7 @@ export default {
   },
   mutations: {
     updateData(state, data) {
-      console.log('data received is ' + JSON.stringify(data));
+      // console.log('data received is ' + JSON.stringify(data));
       state.data = data;
     },
   },
