@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card align-items-center">
     <div class="card-body">
       <h4 class="card-title"> {{
           match.teams[0] + ' vs ' + match.teams[1] + ' at ' + match.time + ' '
@@ -7,22 +7,22 @@
         }}</h4>
       <div class="card-text">
 
-        <form>
+        <form class="form-inline">
           <div class="form-group">
             <label for="team1">{{ match.teams[0] }}</label>
-            <input type="number" v-model="team0" class="form-control" id="team1"
+            <input type="number" v-model="team0" class="form-control ml-2" id="team1"
                    placeholder="0">
           </div>
-          <div class="form-group">
+          <div class="form-group ml-2">
             <label for="team2">{{ match.teams[1] }}</label>
-            <input type="number" v-model="team1" class="form-control" id="team2"
+            <input type="number" v-model="team1" class="form-control ml-2" id="team2"
                    placeholder="0">
           </div>
 
-          <div class="form-group">
-            <label for="remarks">Remarks</label>
-            <textarea v-model="remarks" class="form-control" id="remarks" rows="3"></textarea>
-          </div>
+<!--          <div class="form-group">-->
+<!--            <label for="remarks">Remarks</label>-->
+<!--            <textarea v-model="remarks" class="form-control" id="remarks" rows="3"></textarea>-->
+<!--          </div>-->
 
         </form>
       </div>
@@ -59,9 +59,16 @@ export default {
     },
     reportScore() {
 
+      let team0Score = parseInt(this.team1);
+      let team1Score = parseInt(this.team0);
+
+      if(team0Score < 0 && team1Score <0 ){
+        return;
+      }
+
       const data = {};
-      data[this.match.teams[0]] = parseInt(this.team0);
-      data[this.match.teams[1]] = parseInt(this.team1);
+      data[this.match.teams[0]] =team0Score ;
+      data[this.match.teams[1]] = team1Score;
 
       console.log("date being sent"+ JSON.stringify(data));
 
