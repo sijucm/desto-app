@@ -10,7 +10,7 @@
 
 </template>
 <script>
-import PoolView from "@/components/PoolView"
+import PoolView from "@/components/view/PoolView"
 
 export default {
   name: 'PoolList',

@@ -1,12 +1,16 @@
 <template>
 
-  <div class="card mt-2" :class="'division-'+this.poolNumber" >
+  <div class="card mt-2" :class="'division-'+this.poolNumber">
     <!--    <img class="card-img-top" src="ss" alt="Card image cap">-->
     <div class="card-body">
-      <h5 class="card-title">{{this.$store.getters.getPoolName(this.poolNumber)}}</h5>
-            <p class="card-text">
-      <div v-for="(team) in getPoolData(this.poolNumber)" :key="team.team">
-        <team-view class="mt-2" :team="team"></team-view>
+      <h4 class="card-title">{{ this.getPoolName(this.poolNumber)['divisionName'] }}</h4>
+      <h5 class="card-subtitle">{{ this.getPoolName(this.poolNumber)['subPoolName'] }}</h5>
+      <div class="card-text">
+
+
+         <team-list :pool-number="this.poolNumber"></team-list>
+         <match-list :pool-number="this.poolNumber"></match-list>
+
       </div>
       <!--      <a href="#" class="btn btn-primary">Go somewhere</a>-->
     </div>
@@ -16,11 +20,12 @@
 
 <script>
 import {mapGetters} from "vuex";
-import TeamView from "@/components/TeamView";
+import MatchList from "@/components/view/MatchList";
+import TeamList from "@/components/view/TeamList";
 
 export default {
   name: "PoolView",
-  components: {TeamView},
+  components: {TeamList, MatchList},
   props: {
     poolNumber: {
       type: Number,
@@ -30,11 +35,11 @@ export default {
 
   computed: {
     ...mapGetters('teampools', ['getPoolData']),
+    ...mapGetters(['getMatches']),
+    ...mapGetters(['getPoolName'])
   },
 
-  methods: {
-
-  }
+  methods: {}
 }
 </script>
 
@@ -54,6 +59,7 @@ export default {
 .division-4 {
   background-color: #98B4D4;
 }
+
 .division-5 {
   background-color: #DFCFBE;
 }

@@ -6,9 +6,10 @@
       "direction": "in",
       "name": "req",
       "methods": [
-        "get"
+        "get",
+        "post"
       ],
-      "route": "teamPools/{weekNumber}/{weekName}"
+      "route": "matches/{weekNumber}/{weekName}"
     },
     {
       "type": "http",
@@ -16,11 +17,12 @@
       "name": "res"
     },
     {
-      "name": "teampools",
+      "name": "matchData",
       "type": "cosmosDB",
       "direction": "in",
       "databaseName": "WeekData",
-      "collectionName": "TeamPool",
+      "createIfNotExists": false,
+      "collectionName": "MatchEvents",
       "id": "{weekName}",
       "partitionKey": "{weekNumber}",
       "connectionStringSetting": "CosmosDBConnection"

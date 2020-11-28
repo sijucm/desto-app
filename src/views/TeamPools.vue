@@ -12,7 +12,7 @@
 
 
 import {mapActions} from "vuex";
-import PoolList from "@/components/PoolList";
+import PoolList from "@/components/view/PoolList";
 
 export default {
   components: {PoolList},
@@ -20,12 +20,14 @@ export default {
   created() {
     // this.$store.dispatch("teampools/loadData")
     this.loadData();
+    this.loadMatchData();
   },
 
   methods: {
     ...mapActions('teampools', [
       'loadData',
     ]),
+    ...mapActions('matches', {loadMatchData:'loadData'}),
   },
   computed: {
     // ...mapState('teampools', {
