@@ -6,7 +6,7 @@
 
         <div class="row">
 
-          <div class="col align-self-center">{{ team.team }}</div>
+          <div class="col-4 align-self-center">{{ team.team }}</div>
 
           <div class="col p-0">
             <ul class="list-group list-group-flush">
@@ -90,6 +90,15 @@ export default {
 
 .list-group-item  {
   background-color: inherit;
+  padding: 0;
+}
+
+.card-body{
+  padding-left: 0;
+}
+
+.container{
+  padding-left: 1;
 }
 
 </style>
