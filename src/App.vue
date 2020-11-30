@@ -1,17 +1,89 @@
 <template>
-      <div class="bg-white shadow-well py-4">
-<!--            <router-view></router-view>-->
-        <router-view></router-view>
+  <div>
+
+
+    <Main
+        flavour="layoutFullWidth"
+        :title-long="title.long"
+        :title-short="title.short"
+        :sdmID="'#123'">
+      <template v-slot:titlebar>
+
+        <div class="container">
+          <div class="row">
+            <div class="col">
+
+              <header class="pt-2 px-2 px-md-0 py-md-4">
+                <h2 class="text-gray">{{ title.long }}</h2>
+                <h6>{{ title.short }}</h6>
+              </header>
+            </div>
+            <div class="col">
+
+              <nav class="navbar navbar-expand-lg navbar-light float-right">
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                  <ul class="navbar-nav">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Next</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/help">About</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/.auth/login/aad">Login</a>
+                    </li>
+                    <!--                    <li class="nav-item dropdown">-->
+                    <!--                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"-->
+                    <!--                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                    <!--                        Dropdown link-->
+                    <!--                      </a>-->
+                    <!--                      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">-->
+                    <!--                        <a class="dropdown-item" href="#">Action</a>-->
+                    <!--                        <a class="dropdown-item" href="#">Another action</a>-->
+                    <!--                        <a class="dropdown-item" href="#">Something else here</a>-->
+                    <!--                      </div>-->
+                    <!--                    </li>-->
+                  </ul>
+                </div>
+              </nav>
+
+            </div>
+          </div>
         </div>
+
+      </template>
+
+      <div class="bg-white shadow-well py-4">
+        <router-view></router-view>
+      </div>
+
+    </Main>
+  </div>
+
 </template>
 
 <script>
 
+import Main from "@/layouts/Main";
+
 export default {
   name: "App",
+  components: {Main},
   data() {
     return {
-      value: "World"
+      title: {
+        long: 'Teams',
+        short: '',
+      }
     };
   }
 };
