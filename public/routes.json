@@ -8,10 +8,7 @@
       "route": "/login",
       "serve": "/.auth/login/aad"
     },
-    {
-      "route": "/authinfo",
-      "serve": "/.auth/me"
-    },
+
     {
       "route": "/logout",
       "serve": "/.auth/logout"

@@ -27,7 +27,7 @@ export default {
 
   actions: {
     loadAuthData({commit}) {
-      axios.get('/authinfo')
+      axios.get('/.auth/me')
       .then((results) => commit('updateData', results.data))
       .catch(console.error);
     },
