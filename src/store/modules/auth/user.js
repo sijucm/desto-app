@@ -4,7 +4,10 @@ export default {
   namespaced: true,
   state: {
     data: {
-      userRoles: []
+      clientPrincipal: {
+        userRoles: [
+        ]
+      }
     }
   },
 
@@ -17,14 +20,14 @@ export default {
   getters: {
 
     getRoles: state => {
-      return state.data.userRoles;
+      return state.data.clientPrincipal.userRoles;
     }
 
   },
 
   actions: {
     loadAuthData({commit}) {
-      axios.get('/.auth/me')
+      axios.get('/authinfo')
       .then((results) => commit('updateData', results.data))
       .catch(console.error);
     },
