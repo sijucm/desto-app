@@ -13,9 +13,12 @@
         <match-result-view :results="match.results?match.results:{}" :teams="match.teams"></match-result-view>
       </div>
 
-      <router-link class="float-right mt-2" :to="{name: 'ReportScore', params:{match}}">{{
+
+      <router-link v-if="this.getRoles().includes('destoadmin')" class="float-right mt-2" :to="{name: 'ReportScore', params:{match}}">{{
           match.results ? 'Change results' : 'Report results'
         }} </router-link>
+
+
     </div>
 
 
@@ -25,6 +28,7 @@
 
 <script>
 import MatchResultView from "@/components/view/MatchResultView";
+import {mapGetters} from "vuex";
 export default {
   name: "MatchView",
   components: {MatchResultView},
@@ -38,6 +42,7 @@ export default {
     goToReport: (match) => {
       this.$router.push({name: 'ReportScore', params: {match}})
     },
+    ... mapGetters ('user', ['getRoles'])
   },
 }
 </script>

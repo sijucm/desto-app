@@ -74,13 +74,6 @@ export default {
 
 
 
-      axios.get('/.auth/me')
-
-      .then((results) => console.log(results))
-      .catch(console.error);
-
-
-
       axios.post('/api/score/1/week' + 1 + '/' + this.match.id, data)
       .then((results) => {
         this.updateData(results.data);

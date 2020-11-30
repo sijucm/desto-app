@@ -1,9 +1,33 @@
 {
   "routes": [
     {
+      "route": "/api/score",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/login",
+      "serve": "/.auth/login/aad"
+    },
+    {
+      "route": "/logout",
+      "serve": "/.auth/logout"
+    },
+    {
       "route": "/*",
       "serve": "/index.html",
       "statusCode": 200
+    }
+
+  ],
+  "platformErrorOverrides": [
+    {
+      "errorType": "NotFound",
+      "serve": "/custom-404.html"
+    },
+    {
+      "errorType": "Unauthenticated",
+      "statusCode": "302",
+      "serve": "/login"
     }
   ]
 }

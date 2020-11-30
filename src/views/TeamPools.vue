@@ -24,6 +24,8 @@ export default {
     // this.$store.dispatch("teampools/loadData")
     this.loadData();
     this.loadMatchData();
+    this.loadAuthData();
+
   },
 
   methods: {
@@ -31,6 +33,7 @@ export default {
       'loadData',
     ]),
     ...mapActions('matches', {loadMatchData:'loadData'}),
+    ...mapActions('user', ['loadAuthData'])
   },
   computed: {
     // ...mapState('teampools', {

@@ -39,7 +39,7 @@
                       <a class="nav-link" href="/help">About</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/.auth/login/aad">Login</a>
+                        <LoginUser></LoginUser>
                     </li>
                     <!--                    <li class="nav-item dropdown">-->
                     <!--                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"-->
@@ -74,10 +74,11 @@
 <script>
 
 import Main from "@/layouts/Main";
+import LoginUser from "@/components/user/LoginUser";
 
 export default {
   name: "App",
-  components: {Main},
+  components: {LoginUser, Main},
   data() {
     return {
       title: {
