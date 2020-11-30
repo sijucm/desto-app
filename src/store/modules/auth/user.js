@@ -5,8 +5,7 @@ export default {
   state: {
     data: {
       clientPrincipal: {
-        userRoles: [
-        ]
+        userRoles: []
       }
     }
   },
@@ -14,13 +13,18 @@ export default {
   mutations: {
     updateData(state, data) {
       state.data = data;
+      console.log("user auth data is " + JSON.stringify(state))
     }
   },
 
   getters: {
 
-    getRoles: state => {
-      return state.data.clientPrincipal.userRoles;
+    getRoles: state => () => {
+      console.log(
+          "user auth when retreiving roles is " + JSON.stringify(this.state));
+      if (state.data.clientPrincipal && state.data.clientPrincipal.userRoles) {
+        return state.data.clientPrincipal.userRoles;
+      }
     }
 
   },
@@ -46,4 +50,5 @@ export default {
 //     "authenticated"
 //   ]
 // }
+
 
