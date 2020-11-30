@@ -4,9 +4,7 @@ export default {
   namespaced: true,
   state: {
     data: {
-      clientPrincipal: {
-        userRoles: []
-      }
+      clientPrincipal: null
     }
   },
 
@@ -19,11 +17,13 @@ export default {
 
   getters: {
 
-    getRoles: state => () => {
+    getRoles: state =>  {
       console.log(
           "user auth when retreiving roles is " + JSON.stringify(this.state));
       if (state.data.clientPrincipal && state.data.clientPrincipal.userRoles) {
         return state.data.clientPrincipal.userRoles;
+      }else{
+        return [];
       }
     }
 

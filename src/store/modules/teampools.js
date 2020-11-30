@@ -33,6 +33,7 @@ export default {
     },
 
   },
+
   getters: {
     getPoolData: (state) => (poolNumber) => {
       // console.log("pool number is getter is : " + poolNumber)
