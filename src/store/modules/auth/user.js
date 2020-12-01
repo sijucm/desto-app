@@ -11,19 +11,31 @@ export default {
   mutations: {
     updateData(state, data) {
       state.data = data;
-      console.log("user auth data is " + JSON.stringify(state))
     }
   },
 
   getters: {
 
     getRoles: state =>  {
-      console.log(
-          "user auth when retreiving roles is " + JSON.stringify(this.state));
       if (state.data.clientPrincipal && state.data.clientPrincipal.userRoles) {
         return state.data.clientPrincipal.userRoles;
       }else{
         return [];
+      }
+    },
+
+    canChangeScore: (state, getters) => {
+      // if(!this) {
+      //   return true;
+      // }
+      if(getters.getRoles.includes('futadmin', 'destoadmin', 'teamadmin', 'siteadmin')){
+        return true;
+      }
+    },
+
+    isLoggedIn: (state, getters) => {
+      if(getters.getRoles.includes('authenticated') ){
+        return true;
       }
     }
 

@@ -2,7 +2,7 @@
   "routes": [
     {
       "route": "/api/score",
-      "allowedRoles": ["authenticated"]
+      "allowedRoles": ["teamadmin", "destoadmin", "futadmin", "siteadmin"]
     },
     {
       "route": "/login",

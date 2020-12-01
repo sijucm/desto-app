@@ -1,28 +1,28 @@
 <template>
   <div class="card align-items-center">
     <div class="card-body">
-      <h4 class="card-title"> {{
-          match.teams[0] + ' vs ' + match.teams[1] + ' at ' + match.time + ' '
-          + match.field
-        }}</h4>
+<!--      <h6 class="card-title"> {{-->
+<!--          match.teams[0] + ' vs ' + match.teams[1] + ' at ' + match.time + ' '-->
+<!--          + match.field-->
+<!--        }}</h6>-->
       <div class="card-text">
 
         <form class="form-inline">
           <div class="form-group">
             <label for="team1">{{ match.teams[0] }}</label>
-            <input type="number" v-model="team0" class="form-control ml-2" id="team1"
-                   placeholder="0">
+            <input  type="number" v-model="team0" class="form-control form-control-lg ml-2" id="team1"
+                   placeholder="goals">
           </div>
-          <div class="form-group ml-2">
+          <div class="form-group">
             <label for="team2">{{ match.teams[1] }}</label>
-            <input type="number" v-model="team1" class="form-control ml-2" id="team2"
-                   placeholder="0">
+            <input  type="number" v-model="team1" class="form-control form-control-lg ml-2" id="team2"
+                   placeholder="goals">
           </div>
 
-<!--          <div class="form-group">-->
-<!--            <label for="remarks">Remarks</label>-->
-<!--            <textarea v-model="remarks" class="form-control" id="remarks" rows="3"></textarea>-->
-<!--          </div>-->
+          <!--          <div class="form-group">-->
+          <!--            <label for="remarks">Remarks</label>-->
+          <!--            <textarea v-model="remarks" class="form-control" id="remarks" rows="3"></textarea>-->
+          <!--          </div>-->
 
         </form>
       </div>
@@ -44,7 +44,7 @@ export default {
   name: "ReportScore",
   data() {
     return {
-      team0: 0, team1: 0, remarks: ''
+      team0: '', team1: '', remarks: ''
     }
   },
   props: {
@@ -59,36 +59,32 @@ export default {
     },
     reportScore() {
 
-      let team0Score = parseInt(this.team1);
-      let team1Score = parseInt(this.team0);
+      if (!this.canChangeScore) {
+        //TODO-1: change this to a notification
+        console.log('No authorization to change the score');
+      }
 
-      if(team0Score < 0 && team1Score <0 ){
+      let team0Score = parseInt(this.team0);
+      let team1Score = parseInt(this.team1);
+
+      if (team0Score < 0 && team1Score < 0) {
         return;
       }
 
       const data = {};
-      data[this.match.teams[0]] =team0Score ;
+      data[this.match.teams[0]] = team0Score;
       data[this.match.teams[1]] = team1Score;
 
-      console.log("date being sent"+ JSON.stringify(data));
+      console.log("date being sent" + JSON.stringify(data));
 
-
-
-      axios.post('/api/score/1/week' + 1 + '/' + this.match.id, data)
+      const currentWeek = this.$store.state.currentWeek;
+      axios.post('/api/score/' + currentWeek + '/week' + currentWeek + '/' + this.match.id, data)
       .then((results) => {
         this.updateData(results.data);
         this.$router.push('/');
       })
       .catch(error => console.log(error));
 
-      // // var jsonmatch = '';
-      // // for(let i = 1; i <= 6; i++) {
-      // //   const v = "\"pool"+i+"\":"+JSON.stringify(this.$store.getters.getMatches(i, this.getPoolData(i))) +','
-      // //   jsonmatch = jsonmatch + v;
-      // //
-      // // }
-      //
-      // console.log(jsonmatch);
 
     },
     ...mapActions('teampools', [
@@ -98,10 +94,16 @@ export default {
   },
   computed: {
     ...mapGetters('teampools', ['getPoolData']),
+    ...mapGetters('user', ['canChangeScore']),
   }
 }
 </script>
 
 <style scoped>
 
+label
+{
+  font-weight:900;
+  text-align:right;
+}
 </style>

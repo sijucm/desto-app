@@ -1,11 +1,20 @@
 <template>
-  <a class="nav-link" href="/login">Login</a>
+  <span>
+    <a v-if="!this.isLoggedIn()" class="nav-link" href="/login">Login</a>
+    <a v-if="this.isLoggedIn()" class="nav-link" href="/logout">Logout</a>
+  </span>
 </template>
 
 <script>
 //?post_login_redirect_uri=%2Fuserauth
+import {mapGetters} from "vuex";
+
 export default {
-  name: "LoginUser"
+  name: "LoginUser",
+  methods: {
+    ...mapGetters('user', ['isLoggedIn']),
+  }
+
 }
 </script>
 

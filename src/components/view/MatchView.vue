@@ -15,7 +15,7 @@
       </div>
 
 
-      <router-link v-if="getR().includes('destoadmin')" class="float-right mt-2"
+      <router-link v-if="this.canChangeScore()" class="float-right mt-2"
                    :to="{name: 'ReportScore', params:{match}}">{{
           match.results ? 'Change results' : 'Report results'
         }}
@@ -31,7 +31,7 @@
 
 <script>
 import MatchResultView from "@/components/view/MatchResultView";
-// import {mapGetters} from "vuex";
+import {mapGetters} from "vuex";
 
 export default {
   name: "MatchView",
@@ -43,23 +43,13 @@ export default {
     },
   },
   created() {
-    console.log("Roles : " + this.getR())
+    // console.log("Roles : " + this.getRoles())
   },
   methods: {
     goToReport: (match) => {
       this.$router.push({name: 'ReportScore', params: {match}})
     },
-    // ...mapGetters('user', ['getRoles']),
-    getR() {
-      console.log("data in store: " + this.$store.state.user.data.clientPrincipal);
-      if (this.$store.state.user.data.clientPrincipal
-          && this.$store.state.user.data.clientPrincipal.userRoles) {
-        return this.$store.state.user.data.clientPrincipal.userRoles;
-
-      } else {
-        return [];
-      }
-    }
+    ...mapGetters('user', ['canChangeScore']),
   },
 }
 </script>
