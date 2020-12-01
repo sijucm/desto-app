@@ -57,10 +57,10 @@ module.exports = async function (context, matchId, poolName, matchData,
     }
 
     // if the goals are empty then this can be ignored as a result. Could happen
-    if (!(teamList[0]['goals'] && teamList[1]['goals'])) {
+    if (!(teamList[0]['goals'] !=null && teamList[1]['goals']!=null)) {
       context.log(
-          "goals are not present for the teams while processing points. team0:"
-          + teamList[0]['goals'] + "team1:" + teamList[1]['goals'])
+          "goals are not present for the teams while processing points. team0: "
+          + teamList[0]['goals'] + "team1: " + teamList[1]['goals'])
       return;
     }
 

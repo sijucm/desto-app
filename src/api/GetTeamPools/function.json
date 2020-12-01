@@ -8,7 +8,7 @@
       "methods": [
         "get"
       ],
-      "route": "teamPools/{weekNumber}/{weekName}"
+      "route": "teampool/{id}"
     },
     {
       "type": "http",
@@ -19,10 +19,10 @@
       "name": "teampools",
       "type": "cosmosDB",
       "direction": "in",
-      "databaseName": "WeekData",
-      "collectionName": "TeamPool",
-      "id": "{weekName}",
-      "partitionKey": "{weekNumber}",
+      "databaseName": "desto",
+      "collectionName": "teampool",
+      "id": "{id}",
+      "partitionKey": "{id}",
       "connectionStringSetting": "CosmosDBConnection"
     }
   ]

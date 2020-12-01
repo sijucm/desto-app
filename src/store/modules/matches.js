@@ -33,7 +33,7 @@ export default {
 
         const currentWeek = this.state.currentWeek;
 
-        axios.get('/api/matches/' + currentWeek + '/week' + currentWeek)
+        axios.get('/api/matches/' + currentWeek)
 
         .then((results) => commit('updateData', results.data))
         .catch(console.error);
