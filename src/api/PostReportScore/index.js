@@ -17,6 +17,11 @@ module.exports = async function (context, req, matchData, teamPools) {
 
     if (matchObj && matchObj.length > 0) {
 
+      // check if the teams match the match id
+      //TODO add the below validation after testing
+      // req.body.keys().includes(matchObj.teams);
+
+
       matchObj[0]['results'] = req.body;
 
       context.bindings.matchDataUpdated = data;

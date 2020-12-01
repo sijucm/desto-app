@@ -36,17 +36,35 @@ module.exports = async function (context, matchId, poolName, matchData,
       return {'team': teamName, 'goals': match[teamName]}
     });
 
-    console.log(" Team result in the match: " + JSON.stringify(teamList));
+    context.log(" Team result in the match: " + JSON.stringify(teamList));
 
     const team0 = poolData.filter(
         team => team.team === teamList[0].team)[0];
 
-    console.log(" pooldata initial of team0 : " + JSON.stringify(team0));
+    context.log(" pooldata initial of team0 : " + JSON.stringify(team0));
 
     const team1 = poolData.filter(
         team => team.team === teamList[1].team)[0];
 
-    console.log("pooldata initial of team1 " + JSON.stringify(team1));
+    // if team0 or team1 are not matching the pool. Should not happen
+    // TODO But this check should happen while accessing the array above
+    if (!(team0 && team1)) {
+      context.log(
+          "Teams cannot be identified during processing of points. team0:"
+          + team0 + " team1:" + team1)
+      return;
+
+    }
+
+    // if the goals are empty then this can be ignored as a result. Could happen
+    if (!(teamList[0]['goals'] && teamList[1]['goals'])) {
+      context.log(
+          "goals are not present for the teams while processing points. team0:"
+          + teamList[0]['goals'] + "team1:" + teamList[1]['goals'])
+      return;
+    }
+
+    context.log("pooldata initial of team1 " + JSON.stringify(team1));
 
     const poolTeam0Standings = team0.standings;
 
@@ -84,7 +102,7 @@ module.exports = async function (context, matchId, poolName, matchData,
   poolData.sort(
       (a, b) => {
         const v = b.standings.points - a.standings.points
-            ||  (b.standings.gf - b.standings.ga) - (a.standings.gf
+            || (b.standings.gf - b.standings.ga) - (a.standings.gf
                 - a.standings.ga)
             || b.standings.gf - a.standings.gf;
         return v;
