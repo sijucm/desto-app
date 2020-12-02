@@ -9,7 +9,7 @@
               <!--              <result-badge-view :shown="getClassForTeamZero"></result-badge-view>-->
             </li>
             <li class="list-group-item match-card p-0 d-flex justify-content-center">
-              {{ results.hasOwnProperty(teams[0])?results[teams[0]]:"..." }}
+              {{ results.hasOwnProperty(teams[0]) && results[teams[0]] !=null ?results[teams[0]]:"..." }}
             </li>
           </ul>
         </div>
@@ -19,7 +19,7 @@
               <!--              <result-badge-view :shown="getClassForTeamOne"></result-badge-view>-->
             </li>
             <li class="list-group-item match-card p-0 d-flex justify-content-center">
-              {{ results.hasOwnProperty(teams[1])?results[teams[1]]:"..." }}
+              {{ results.hasOwnProperty(teams[1])  && results[teams[1]] !=null ?results[teams[1]]:"..." }}
             </li>
           </ul>
         </div>

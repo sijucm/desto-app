@@ -9,7 +9,7 @@
         "get",
         "post"
       ],
-      "route": "matches/{weekNumber}/{weekName}"
+      "route": "matches/{id}"
     },
     {
       "type": "http",
@@ -20,11 +20,11 @@
       "name": "matchData",
       "type": "cosmosDB",
       "direction": "in",
-      "databaseName": "WeekData",
+      "databaseName": "desto",
       "createIfNotExists": false,
-      "collectionName": "MatchEvents",
-      "id": "{weekName}",
-      "partitionKey": "{weekNumber}",
+      "collectionName": "matchdata",
+      "id": "{id}",
+      "partitionKey": "{id}",
       "connectionStringSetting": "CosmosDBConnection"
     }
   ]

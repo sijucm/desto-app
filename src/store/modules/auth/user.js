@@ -16,10 +16,10 @@ export default {
 
   getters: {
 
-    getRoles: state =>  {
+    getRoles: state => {
       if (state.data.clientPrincipal && state.data.clientPrincipal.userRoles) {
         return state.data.clientPrincipal.userRoles;
-      }else{
+      } else {
         return [];
       }
     },
@@ -28,13 +28,14 @@ export default {
       // if(!this) {
       //   return true;
       // }
-      if(getters.getRoles.includes('futadmin', 'destoadmin', 'teamadmin', 'siteadmin')){
+      if (getters.getRoles.includes('futadmin', 'destoadmin', 'teamadmin',
+          'siteadmin')) {
         return true;
       }
     },
 
     isLoggedIn: (state, getters) => {
-      if(getters.getRoles.includes('authenticated') ){
+      if (getters.getRoles.includes('authenticated')) {
         return true;
       }
     }
@@ -43,9 +44,34 @@ export default {
 
   actions: {
     loadAuthData({commit}) {
-      axios.get('/.auth/me')
-      .then((results) => commit('updateData', results.data))
-      .catch(console.error);
+
+      if (process.env.NODE_ENV === 'development') {
+
+        const sampleData = {
+          "clientPrincipal":
+              {
+                "identityProvider":
+                    "aad",
+                "userId":
+                    "917ff56622e94e66aa0785ac07d51c65",
+                "userDetails":
+                    "Localuser",
+                "userRoles":
+                    [
+                        "futadmin",
+                      "destoadmin",
+                      "anonymous",
+                      "authenticated"
+                    ]
+              }
+        };
+        commit('updateData', sampleData)
+
+      } else {
+        axios.get('/.auth/me')
+        .then((results) => commit('updateData', results.data))
+        .catch(console.error);
+      }
     },
 
   },

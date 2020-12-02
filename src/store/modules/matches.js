@@ -3,9 +3,7 @@ import axios from "axios";
 export default {
   namespaced: true,
   state: {
-    data: {
-
-    },
+    data: {},
   },
 
   mutations: {
@@ -17,9 +15,18 @@ export default {
   getters: {
 
     getMatches: state => poolNumber => {
-      return state.data['pool'+poolNumber];
+      return state.data['pool' + poolNumber];
 
-    }
+    },
+    getMatchesForTeam: state => teamName => {
+      const poolNameList = Object.keys(state.data).filter(
+          keyName => keyName.startsWith('pool'));
+
+      console.log(poolNameList);
+
+      return poolNameList.flatMap(poolName => state.data[poolName]).filter(
+          match => match.teams.includes(teamName));
+    },
 
   },
 
@@ -27,19 +34,18 @@ export default {
 
     loadData({commit}) {
 
-      if(this.state.nothing) {
+      if (this.state.nothing) {
         return;
-      }else {
+      } else {
 
         const currentWeek = this.state.currentWeek;
 
-        axios.get('/api/matches/' + currentWeek + '/week' + currentWeek)
+        axios.get('/api/matches/' + currentWeek)
 
         .then((results) => commit('updateData', results.data))
         .catch(console.error);
       }
     },
-
 
   },
 

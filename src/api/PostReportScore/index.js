@@ -5,6 +5,16 @@ module.exports = async function (context, req, matchData, teamPools) {
 
   if (req.body) {
 
+    if(!teamPools || ! matchData){
+      // without existing data not happy
+      return;
+    }
+
+    if(teamPools['locked']){
+      // cannot change any more
+      return;
+    }
+
     // var week = context.bindingData.week;
     var matchId = context.bindingData.matchId;
 
@@ -16,6 +26,11 @@ module.exports = async function (context, req, matchData, teamPools) {
     })
 
     if (matchObj && matchObj.length > 0) {
+
+      // check if the teams match the match id
+      //TODO add the below validation after testing
+      // req.body.keys().includes(matchObj.teams);
+
 
       matchObj[0]['results'] = req.body;
 

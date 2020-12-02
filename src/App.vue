@@ -63,7 +63,9 @@
       </template>
 
       <div class="bg-white shadow-well py-4">
-        <router-view></router-view>
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
       </div>
 
     </Main>
