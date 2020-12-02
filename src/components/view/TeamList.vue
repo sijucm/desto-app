@@ -14,7 +14,9 @@
 
           <ul class="list-group list-group-flush mt-2">
             <li class="list-group-item team-card p-0"  v-for="(team) in getPoolData(this.poolNumber)" :key="team.team">
-              <team-view :team="team"></team-view>
+
+
+              <team-view :icon="champion" :team="team"></team-view>
             </li>
           </ul>
   </div>
@@ -23,10 +25,16 @@
 <script>
 import {mapGetters} from "vuex";
 import TeamView from "@/components/view/TeamView";
+import {champion} from "@/assets/icons"
 
 export default {
   name: "TeamList",
   components: {TeamView},
+  data (){
+    return{
+      champion
+    }
+  },
   props: {
     poolNumber: {
       type: Number,

@@ -44,7 +44,7 @@ export default {
   name: "ReportScore",
   data() {
     return {
-      team0: '', team1: '', remarks: ''
+      team0: this.match.results?this.match.results[this.match.teams[0]]:0 , team1: this.match.results?this.match.results[this.match.teams[1]]:0, remarks: ''
     }
   },
   props: {
@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     goHome() {
-      this.$router.push('/');
+      this.$router.go(-1);
     },
     reportScore() {
 
@@ -82,7 +82,7 @@ export default {
       axios.post('/api/' + currentWeek + '/match/' + this.match.id + '/score', data)
       .then((results) => {
         this.updateData(results.data);
-        this.$router.push('/');
+        this.$router.go(-1);
       })
       .catch(error => console.log(error));
 
