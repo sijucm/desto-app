@@ -1,5 +1,5 @@
 const numberOfPools = 6;
-let currentScheduleIdNumber = 3;
+let currentScheduleIdNumber;
 
 const timeSlotFieldList = {
   pool1: {

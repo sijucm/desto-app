@@ -8,8 +8,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    selectedSchedule:1,
-    availableSchedules:['schedule3', 'schedule4'],
+    selectedSchedule:2,
+    availableSchedules:['schedule1', 'schedule2', 'schedule3', 'schedule4'],
     poolNames: {
       1: {divisionName: 'Premier League', subPoolName: 'Poule 1'},
       2: {divisionName: 'Premier League', subPoolName: 'Poule 2'},

@@ -9,7 +9,7 @@
       </div>
       <div class="col-6 text-center">
         <h5>
-          Speelronde <b>{{ this.$store.state.selectedSchedule + 3 }}</b>
+          Speelronde <b>{{ this.$store.state.selectedSchedule + 1 }}</b>
         </h5>
       </div>
       <div class="col ">
