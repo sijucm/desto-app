@@ -2,16 +2,21 @@
   <div>
 
     <div class="container">
-      <div class="row">
-        <div class="col-3 align-self-center"><h5>{{ team.team }}</h5></div>
+      <div class="row align-items-center">
+        <div class="col-3 align-text-bottom"><h5>{{ team.team }}</h5></div>
         <div class="col">
-          <team-stand  :team="team"></team-stand>
+          <team-stand :team="team"></team-stand>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <match-list :show-toggle-show-matches="false" :pool-number="99"
+                      :matches="this.getMatchesForTeam('J09-1')"></match-list>
         </div>
       </div>
     </div>
 
-    <match-list :show-toggle-show-matches="false" :pool-number="99"
-                :matches="this.getMatchesForTeam('J09-1')"></match-list>
+
   </div>
 </template>
 

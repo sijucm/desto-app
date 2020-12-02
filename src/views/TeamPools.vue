@@ -1,13 +1,11 @@
 <template>
 
-  <div>
 
 <div>
-
+  <ChangeCurrentSchedule></ChangeCurrentSchedule>
     <pool-list/>
 </div>
 
-  </div>
 
 </template>
 
@@ -16,24 +14,21 @@
 
 import {mapActions} from "vuex";
 import PoolList from "@/components/view/PoolList";
+import ChangeCurrentSchedule from "@/components/view/ChangeCurrentSchedule";
 
 export default {
-  components: {PoolList},
+  components: {ChangeCurrentSchedule, PoolList},
   name: 'TeamPools',
   created() {
     // this.$store.dispatch("teampools/loadData")
-    this.loadData();
-    this.loadMatchData();
-    this.loadAuthData();
+    this.loadAllData();
 
   },
 
   methods: {
-    ...mapActions('teampools', [
-      'loadData',
+    ...mapActions( [
+      'loadAllData',
     ]),
-    ...mapActions('matches', {loadMatchData:'loadData'}),
-    ...mapActions('user', ['loadAuthData'])
   },
   computed: {
     // ...mapState('teampools', {

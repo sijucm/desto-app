@@ -1,6 +1,6 @@
 <template>
   <div class="container m-0">
-    <div class="row">
+    <div class="row justify-content-center text-center">
       <div class="col p-0">
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
@@ -10,7 +10,7 @@
         </ul>
       </div>
 
-      <div class="col p-0 align-self-center">
+      <div class="col p-0">
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
             w
@@ -30,25 +30,25 @@
       <div class="col p-0">
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
-            gf
+            f
           </li>
           <li class="list-group-item">{{ team.standings.gf }}</li>
         </ul>
       </div>
-      <div class="col p-0 justify-content-center">
+      <div class="col p-0">
         <ul class="list-group list-group-flush">
           <li class="list-group-item justify-content-center">
-            ga
+            a
           </li>
           <li class="list-group-item justify-content-center">{{ team.standings.ga }}</li>
         </ul>
       </div>
-      <div class="col p-0 justify-content-center">
+      <div class="col pr-0 pl-1">
         <ul class="list-group list-group-flush justify-content-center">
           <li class="list-group-item justify-content-center">
             points
           </li>
-          <li class="list-group-item justify-content-center">{{
+          <li class="list-group-item">{{
               team.standings.points
             }}
           </li>

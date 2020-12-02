@@ -22,7 +22,6 @@ export default {
       const poolNameList = Object.keys(state.data).filter(
           keyName => keyName.startsWith('pool'));
 
-      console.log(poolNameList);
 
       return poolNameList.flatMap(poolName => state.data[poolName]).filter(
           match => match.teams.includes(teamName));
@@ -32,19 +31,14 @@ export default {
 
   actions: {
 
-    loadData({commit}) {
+    loadData({commit , rootGetters}) {
 
-      if (this.state.nothing) {
-        return;
-      } else {
+        const currentWeek = rootGetters.getCurrentWeek;
 
-        const currentWeek = this.state.currentWeek;
-
-        axios.get('/api/matches/' + currentWeek)
-
+      let url = '/api/matches/' + currentWeek;
+      axios.get(url)
         .then((results) => commit('updateData', results.data))
         .catch(console.error);
-      }
     },
 
   },

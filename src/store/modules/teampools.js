@@ -17,13 +17,13 @@ export default {
   },
 
   actions: {
-    loadData({commit}) {
+    loadData({commit, rootGetters}) {
 
       if(this.state.nothing) {
         return;
       }else {
 
-        const currentWeek = this.state.currentWeek;
+        const currentWeek = rootGetters.getCurrentWeek;
 
         axios.get('/api/teampool/' + currentWeek )
 
