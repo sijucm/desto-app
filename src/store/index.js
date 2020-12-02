@@ -8,7 +8,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    currentWeek: 'week48',
+    currentWeek: 'schedule4',
     poolNames: {
       1: {divisionName: 'Premier League', subPoolName: 'Poule 1'},
       2: {divisionName: 'Premier League', subPoolName: 'Poule 2'},
