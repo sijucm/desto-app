@@ -8,7 +8,7 @@
       "methods": [
         "post"
       ],
-      "route": "admin/gameschedule/{id}/close"
+      "route": "admin/matches/{id}/updateData"
     },
     {
       "type": "http",
@@ -16,40 +16,22 @@
       "name": "res"
     },
     {
-      "name": "currentTeamPools",
+      "name": "matchData",
       "type": "cosmosDB",
       "direction": "in",
       "databaseName": "desto",
-      "collectionName": "teampool",
+      "createIfNotExists": false,
+      "collectionName": "matchdata",
       "id": "{id}",
       "partitionKey": "{id}",
       "connectionStringSetting": "CosmosDBConnection"
     },
-
     {
-      "name": "currentTeamPoolsUpdated",
+      "name": "matchDataUpdated",
       "type": "cosmosDB",
       "direction": "out",
       "databaseName": "desto",
-      "collectionName": "teampool",
-      "id": "{id}",
-      "partitionKey": "{id}",
-      "connectionStringSetting": "CosmosDBConnection"
-    },
-
-    {
-      "name": "newTeamPools",
-      "type": "cosmosDB",
-      "direction": "out",
-      "databaseName": "desto",
-      "collectionName": "teampool",
-      "connectionStringSetting": "CosmosDBConnection"
-    },
-    {
-      "name": "newMatchData",
-      "type": "cosmosDB",
-      "direction": "out",
-      "databaseName": "desto",
+      "createIfNotExists": false,
       "collectionName": "matchdata",
       "connectionStringSetting": "CosmosDBConnection"
     }

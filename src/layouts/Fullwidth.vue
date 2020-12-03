@@ -5,7 +5,7 @@
 <!--    <main id="main" role="main" class="gradient-md&#45;&#45;g200">-->
       <div class="container-fluid max-w-layout px-0 px-md-4">
         <div class="row">
-          <div class="col-lg-12 d-flex flex-column">
+          <div class="col-lg-12 px-0 d-flex flex-column">
             <div class="mt-2 mt-sm-8 mb-1 mb-sm-2 title-bar">
               <slot name="titlebar">
                 <h2 class="text-white d-md-block d-none mb-0">{{ titleLong }}</h2>

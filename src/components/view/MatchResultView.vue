@@ -8,7 +8,7 @@
             <li class="list-group-item match-card p-0 d-flex justify-content-center"> {{ teams[0] }}
               <!--              <result-badge-view :shown="getClassForTeamZero"></result-badge-view>-->
             </li>
-            <li class="list-group-item match-card p-0 d-flex justify-content-center">
+            <li class="list-group-item match-card p-0 d-flex justify-content-center goals">
               {{ results.hasOwnProperty(teams[0]) && results[teams[0]] !=null ?results[teams[0]]:"..." }}
             </li>
           </ul>
@@ -18,7 +18,7 @@
             <li class="list-group-item match-card p-0 d-flex justify-content-center"> {{ teams[1] }}
               <!--              <result-badge-view :shown="getClassForTeamOne"></result-badge-view>-->
             </li>
-            <li class="list-group-item match-card p-0 d-flex justify-content-center">
+            <li class="list-group-item match-card p-0 d-flex justify-content-center goals">
               {{ results.hasOwnProperty(teams[1])  && results[teams[1]] !=null ?results[teams[1]]:"..." }}
             </li>
           </ul>
@@ -78,6 +78,10 @@ export default {
 
 .score-a {
   border-style: groove;
+}
+
+.goals {
+  font-size: 20px;
 }
 
 </style>

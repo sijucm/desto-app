@@ -1,12 +1,12 @@
 <template>
 
   <div class="card text-center match-card float-center">
-    <div class="float-center align-text-center card-header">
-      <h6 class="mt-2 ml-2">{{
-         'Time: '+match.time + ' Field: '
-          + match.field
-        }}</h6>
-    </div>
+<!--    <div class="float-center align-text-center card-header">-->
+<!--      <h6 class="mt-2 ml-2">{{-->
+<!--         'Time: '+match.time + ' Field: '-->
+<!--          + match.field-->
+<!--        }}</h6>-->
+<!--    </div>-->
     <div class="card-body pt-0">
 
       <div>

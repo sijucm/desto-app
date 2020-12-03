@@ -14,7 +14,7 @@
             <div class="col">
 
               <header class="pt-2 px-2 px-md-0 py-md-4">
-                <h2 class="text-gray">{{ title.long }}</h2>
+                <h2 class="text-gray"><router-link to="/">{{ title.long }}</router-link></h2>
                 <h6>{{ title.short }}</h6>
               </header>
             </div>
@@ -32,14 +32,14 @@
                     <li class="nav-item active">
                       <a class="nav-link" href="/">Home </a>
                     </li>
-<!--                    <li class="nav-item">-->
-<!--                      <a class="nav-link" href="#">Next</a>-->
-<!--                    </li>-->
+                    <!--                    <li class="nav-item">-->
+                    <!--                      <a class="nav-link" href="#">Next</a>-->
+                    <!--                    </li>-->
                     <li class="nav-item">
                       <a class="nav-link" href="/#/about">About</a>
                     </li>
                     <li class="nav-item">
-                        <LoginUser></LoginUser>
+                      <LoginUser></LoginUser>
                     </li>
                     <!--                    <li class="nav-item dropdown">-->
                     <!--                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"-->
@@ -62,10 +62,10 @@
 
       </template>
 
-      <div class="bg-white shadow-well py-4">
-<!--        <keep-alive>-->
-          <router-view></router-view>
-<!--        </keep-alive>-->
+      <div class="bg-white shadow-well py-2">
+        <!--        <keep-alive>-->
+        <router-view></router-view>
+        <!--        </keep-alive>-->
       </div>
 
     </Main>
@@ -91,3 +91,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+a {
+  color: inherit;
+}
+</style>

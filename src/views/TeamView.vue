@@ -11,7 +11,7 @@
       <div class="row">
         <div class="col">
           <match-list :show-toggle-show-matches="false" :pool-number="99"
-                      :matches="this.getMatchesForTeam('J09-1')"></match-list>
+                      :matches="this.getMatchesForTeam(team.team)"></match-list>
         </div>
       </div>
     </div>

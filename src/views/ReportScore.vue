@@ -1,5 +1,8 @@
 <template>
-  <div class="card align-items-center">
+  <div>
+    <report-score-component v-if="1==2"></report-score-component>
+
+  <div v-if="1===1" class="card align-items-center">
     <div class="card-body">
 <!--      <h6 class="card-title"> {{-->
 <!--          match.teams[0] + ' vs ' + match.teams[1] + ' at ' + match.time + ' '-->
@@ -33,15 +36,18 @@
     </div>
   </div>
 
+  </div>
 
 </template>
 
 <script>
 import {mapActions, mapGetters, mapMutations} from "vuex";
 import axios from "axios";
+import ReportScoreComponent from "@/components/view/reportScore/ReportScoreComponent";
 
 export default {
   name: "ReportScore",
+  components: {ReportScoreComponent},
   data() {
     return {
       team0: this.match.results?this.match.results[this.match.teams[0]]:0 , team1: this.match.results?this.match.results[this.match.teams[1]]:0, remarks: ''
@@ -79,7 +85,7 @@ export default {
 
       //{weekId}/match/{matchId}/score
       const currentWeek = this.$store.state.currentWeek;
-      axios.post('/api/' + currentWeek + '/match/' + this.match.id + '/score', data)
+      axios.post('/api/modify/' + currentWeek + '/match/' + this.match.id + '/score', data)
       .then((results) => {
         this.updateData(results.data);
         this.$router.go(-1);

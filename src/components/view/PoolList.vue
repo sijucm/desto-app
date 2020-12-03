@@ -1,6 +1,6 @@
 <template>
 
-  <div class="container">
+  <div class="container p-1">
     <div class="row">
       <div class="col-sm-6" v-for="poolNumber in poolList" :key="poolNumber">
         <pool-view class="mt-2" :pool-number=poolNumber></pool-view>

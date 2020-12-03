@@ -1,8 +1,12 @@
 {
   "routes": [
     {
-      "route": "/api/score",
-      "allowedRoles": ["teamadmin", "destoadmin", "futadmin", "siteadmin"]
+      "route": "/admin/*",
+      "allowedRoles": ["destoadmin", "futadmin", "siteadmin"]
+    },
+    {
+      "route": "/modify/*",
+      "allowedRoles": ["authenticated"]
     },
     {
       "route": "/login",

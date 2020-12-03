@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container pr-0">
     <div class="row ">
       <div class="col ">
         <button :class="previousScheduleAvailable?'btn-primary':'btn-secondary'"

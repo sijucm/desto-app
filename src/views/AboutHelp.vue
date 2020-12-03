@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="px-5">
     <h1>About</h1>
 
     <p>This is created for a local football club to track the scores. There are no user data
