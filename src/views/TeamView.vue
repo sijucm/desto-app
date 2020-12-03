@@ -3,15 +3,15 @@
 
     <div class="container">
       <div class="row align-items-center">
-        <div class="col-3 align-text-bottom"><h5>{{ team.team }}</h5></div>
+        <div class="col-3 align-text-bottom"><h5>{{ teamName }}</h5></div>
         <div class="col">
-          <team-stand :team="team"></team-stand>
+          <team-stand :team="this.getTeamData(this.teamName)"></team-stand>
         </div>
       </div>
       <div class="row">
         <div class="col">
           <match-list :show-toggle-show-matches="false" :pool-number="99"
-                      :matches="this.getMatchesForTeam(team.team)"></match-list>
+                      :matches="this.getMatchesForTeam(teamName)"></match-list>
         </div>
       </div>
     </div>
@@ -29,13 +29,14 @@ export default {
   name: "TeamView",
   components: {TeamStand, MatchList},
   props: {
-    team: {
-      type: Object,
+    teamName: {
+      type: String,
       required: true
     }
   },
   computed: {
     ...mapGetters('matches', ['getMatchesForTeam']),
+    ...mapGetters('teampools', ['getTeamData']),
   }
 }
 </script>

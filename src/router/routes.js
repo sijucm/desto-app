@@ -13,7 +13,7 @@ export default [
     props: true,
   },
   {
-    path: '/team',
+    path: '/team/:teamName',
     name: 'TeamView',
     component: TeamView,
     props: true,

@@ -43,6 +43,19 @@ export default {
         return {};
       }
     },
+    getTeamData : (state) => (teamName) => {
+      if(state.data.pools){
+        const matchedTeams = Object.keys(state.data.pools).filter(
+            key => key.startsWith("pool")).flatMap(
+            key => state.data.pools[key]).filter(team => team.team===teamName);
+
+        if(matchedTeams.length >0){
+          return matchedTeams[0];
+        }else{
+          return {};
+        }
+      }
+    },
     isLocked: state =>  {
       return state.data['locked'] ;
     }

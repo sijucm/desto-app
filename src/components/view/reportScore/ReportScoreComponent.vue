@@ -22,7 +22,7 @@
 
     <div class="row py-3 mt-1">
       <div class="col">
-        <button @click="$router.back()" class="btn btn-secondary float-left-sm mx-2" type="button">cancel</button>
+        <button @click="goBack()" class="btn btn-secondary float-left-sm mx-2" type="button">cancel</button>
       </div>
       <div class="col mt-1">
         <button @click="submitResult()" class="btn btn-primary float-right-sm mx-2" type="button">submit</button>
@@ -59,6 +59,9 @@ export default {
     ...mapGetters('user', ['canChangeScore']),
   },
   methods: {
+    goBack(){
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/');
+    },
     ...mapMutations('matches', ['updateData']),
     submitResult(){
       if (!this.canChangeScore) {

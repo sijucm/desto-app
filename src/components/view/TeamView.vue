@@ -8,7 +8,7 @@
 
           <div class="col-4 pr-2 align-self-center">{{ team.team }}
             <router-link class=" mt-2"
-                         :to="{name: 'TeamView', params:{'team':team, 'showMatches': false}}">
+                         :to="{name: 'TeamView', params:{'teamName':team.team, 'showMatches': false}}">
               <span v-html="this.cardText"></span>
             </router-link>
 
