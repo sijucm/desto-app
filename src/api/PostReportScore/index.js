@@ -1,16 +1,20 @@
 const processPoints = require('./processPoints.js');
 
 module.exports = async function (context, req, matchData, teamPools) {
-  context.log('JavaScript HTTP trigger function processed a request.');
+  context.log('JavaScript HTTP trigger function processed a request. ');
 
   if (req.body) {
 
-    if(!teamPools || ! matchData){
+    context.log('request body is '+req.body);
+
+    if (!teamPools || !matchData) {
       // without existing data not happy
       return;
     }
 
-    if(teamPools['locked']){
+    if (teamPools['locked']) {
+      console.log("cannot change. Team pool is locked "
+          + context.bindingData.scheduleId);
       // cannot change any more
       return;
     }
@@ -30,7 +34,6 @@ module.exports = async function (context, req, matchData, teamPools) {
       // check if the teams match the match id
       //TODO add the below validation after testing
       // req.body.keys().includes(matchObj.teams);
-
 
       matchObj[0]['results'] = req.body;
 

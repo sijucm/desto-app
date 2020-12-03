@@ -8,7 +8,7 @@
       "methods": [
         "post"
       ],
-      "route": "modify/{weekId}/match/{matchId}/score"
+      "route": "modify/{scheduleId}/match/{matchId}/score"
     },
     {
       "type": "http",
@@ -22,8 +22,8 @@
       "databaseName": "desto",
       "createIfNotExists": false,
       "collectionName": "matchdata",
-      "id": "{weekId}",
-      "partitionKey": "{weekId}",
+      "id": "{scheduleId}",
+      "partitionKey": "{scheduleId}",
       "connectionStringSetting": "CosmosDBConnection"
     },
     {
@@ -41,8 +41,8 @@
       "direction": "in",
       "databaseName": "desto",
       "collectionName": "teampool",
-      "id": "{weekId}",
-      "partitionKey": "{weekId}",
+      "id": "{scheduleId}",
+      "partitionKey": "{scheduleId}",
       "connectionStringSetting": "CosmosDBConnection"
     },
 

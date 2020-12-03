@@ -28,8 +28,7 @@ export default {
       // if(!this) {
       //   return true;
       // }
-      if (getters.getRoles.includes('futadmin', 'destoadmin', 'teamadmin',
-          'siteadmin')) {
+      if (getters.getRoles.includes('futadmin')) {
         return true;
       }
     },
@@ -45,7 +44,9 @@ export default {
   actions: {
     loadAuthData({commit}) {
 
-      if (process.env.NODE_ENV === 'development') {
+      //TODO : IMPORTANT, look at this hack for now. This WILL cause problems if not changed later
+      if (process.env.NODE_ENV === 'development'
+          || process.env.NODE_ENV === 'production') {
 
         const sampleData = {
           "clientPrincipal":
@@ -58,7 +59,7 @@ export default {
                     "Localuser",
                 "userRoles":
                     [
-                        "futadmin",
+                      "futadmin",
                       "destoadmin",
                       "anonymous",
                       "authenticated"

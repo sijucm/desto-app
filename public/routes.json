@@ -1,12 +1,11 @@
 {
   "routes": [
     {
-      "route": "/admin/*",
+      "route": "/futadmin/*",
       "allowedRoles": ["destoadmin", "futadmin", "siteadmin"]
     },
     {
-      "route": "/modify/*",
-      "allowedRoles": ["authenticated"]
+      "route": "/modify/*"
     },
     {
       "route": "/login",

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <report-score-component v-if="1==2"></report-score-component>
+    <report-score-component :match="match" v-if="1==1"></report-score-component>
 
-  <div v-if="1===1" class="card align-items-center">
+  <div v-if="1===2" class="card align-items-center">
     <div class="card-body">
 <!--      <h6 class="card-title"> {{-->
 <!--          match.teams[0] + ' vs ' + match.teams[1] + ' at ' + match.time + ' '-->
@@ -41,8 +41,6 @@
 </template>
 
 <script>
-import {mapActions, mapGetters, mapMutations} from "vuex";
-import axios from "axios";
 import ReportScoreComponent from "@/components/view/reportScore/ReportScoreComponent";
 
 export default {
@@ -63,46 +61,9 @@ export default {
     goHome() {
       this.$router.go(-1);
     },
-    reportScore() {
 
-      if (!this.canChangeScore) {
-        //TODO-1: change this to a notification
-        console.log('No authorization to change the score');
-      }
-
-      let team0Score = parseInt(this.team0);
-      let team1Score = parseInt(this.team1);
-
-      if (team0Score < 0 && team1Score < 0) {
-        return;
-      }
-
-      const data = {};
-      data[this.match.teams[0]] = team0Score;
-      data[this.match.teams[1]] = team1Score;
-
-      console.log("date being sent" + JSON.stringify(data));
-
-      //{weekId}/match/{matchId}/score
-      const currentWeek = this.$store.state.currentWeek;
-      axios.post('/api/modify/' + currentWeek + '/match/' + this.match.id + '/score', data)
-      .then((results) => {
-        this.updateData(results.data);
-        this.$router.go(-1);
-      })
-      .catch(error => console.log(error));
-
-
-    },
-    ...mapActions('teampools', [
-      'loadData'
-    ]),
-    ...mapMutations('matches', ['updateData'])
   },
-  computed: {
-    ...mapGetters('teampools', ['getPoolData']),
-    ...mapGetters('user', ['canChangeScore']),
-  }
+
 }
 </script>
 

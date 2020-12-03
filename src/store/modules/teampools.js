@@ -43,6 +43,9 @@ export default {
         return {};
       }
     },
+    isLocked: state =>  {
+      return state.data['locked'] ;
+    }
   }
 
 };
