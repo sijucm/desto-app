@@ -1,20 +1,26 @@
 <template>
   <div>
 
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-3 align-text-bottom"><h5>{{ teamName }}</h5></div>
-        <div class="col">
+
+    <div class="card mx-3">
+      <h5 class="card-title text-center">{{teamName}}</h5>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item my-0">
           <team-stand :team="this.getTeamData(this.teamName)"></team-stand>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <match-list :show-toggle-show-matches="false" :pool-number="99"
+        </li>
+        <li class="list-group-item text-center">
+          <match-list  :show-toggle-show-matches="false" :pool-number="99"
                       :matches="this.getMatchesForTeam(teamName)"></match-list>
-        </div>
-      </div>
+        </li>
+        <li class="list-group-item">
+          <button type="submit" @click="$router.push('/')"
+                  class="btn btn-primary float-right mr-4">back
+          </button>
+        </li>
+      </ul>
     </div>
+
+
 
 
   </div>
