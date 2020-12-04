@@ -31,11 +31,11 @@ export default {
 
   actions: {
 
-    loadData({commit , rootGetters}) {
+    loadData({commit }, scheduleId) {
 
-        const currentWeek = rootGetters.getCurrentWeek;
+        // const currentWeek = rootGetters.getCurrentWeek;
 
-      let url = '/api/matches/' + currentWeek;
+      let url = '/api/matches/' + scheduleId;
       axios.get(url)
         .then((results) => commit('updateData', results.data))
         .catch(console.error);

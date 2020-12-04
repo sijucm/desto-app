@@ -54,18 +54,16 @@ export default {
     },
     showNext() {
       const newScheduleIndex = this.$store.state.selectedSchedule + 1;
-      this.changeSchedule(newScheduleIndex);
+      this.changeCurrentSchedule(newScheduleIndex);
 
     },
 
     changeSchedule(newScheduleIndex) {
-      if (this.$store.state.availableSchedules[newScheduleIndex]) {
-        this.$store.state.selectedSchedule = newScheduleIndex;
-        this.loadAllData();
-      }
+        this.changeCurrentSchedule(newScheduleIndex);
     },
 
-    ...mapActions( ['loadAllData'])
+    ...mapActions( ['loadAllData']),
+    ...mapActions( ['changeCurrentSchedule'])
   }
 }
 </script>

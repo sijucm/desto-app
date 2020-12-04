@@ -19,9 +19,9 @@ import ChangeCurrentSchedule from "@/components/view/ChangeCurrentSchedule";
 export default {
   components: {ChangeCurrentSchedule, PoolList},
   name: 'TeamPools',
-  created() {
+   beforeCreate() {
     // this.$store.dispatch("teampools/loadData")
-    this.loadAllData();
+    this.$store.dispatch('loadAllData');
 
   },
 

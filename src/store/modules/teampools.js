@@ -3,61 +3,69 @@ import axios from "axios";
 export default {
   namespaced: true,
   state: {
-    data: {
-
-
-    }
+    data: {}
 
   },
   mutations: {
-    updateData(state, data) {
-      // console.log('data received is ' + JSON.stringify(data));
-      state.data = data;
+    updateData(state, {scheduleId, results}) {
+      console.log("teampools updated "+scheduleId);
+      state.data[scheduleId] = results.data;
     },
   },
 
   actions: {
-    loadData({commit, rootGetters}) {
+    loadData({commit, state}, scheduleId) {
 
-      if(this.state.nothing) {
+      if(state.data[scheduleId] && state.data[scheduleId]['locked']){
         return;
-      }else {
-
-        const currentWeek = rootGetters.getCurrentWeek;
-
-        axios.get('/api/teampool/' + currentWeek )
-
-        .then((results) => commit('updateData', results.data))
-        .catch(console.error);
       }
+
+      // await new Promise(r => setTimeout(r, 2000));
+      // const currentWeek = rootGetters.getCurrentWeek;
+      axios.get('/api/teampool/' + scheduleId)
+      .then((results) => commit('updateData', {scheduleId, results}))
+      .catch(console.error);
     },
 
   },
 
   getters: {
-    getPoolData: (state) => (poolNumber) => {
+    getDataOfCurrentSchedule(state, getters, rootState, rootGetters) {
+      console.log(" current scheduleId in teampools "
+          + rootGetters.getCurrentScheduleId);
+      // console.log(" data is " + JSON.stringify(
+      //     state.data[rootGetters.getCurrentScheduleId]));
+      return state.data[rootGetters.getCurrentScheduleId];
+    },
+
+    getPoolData: (state, getters) => (poolNumber) => {
       // console.log("pool number is getter is : " + poolNumber)
-      if (state.data.pools) {
-        return state.data.pools['pool' + poolNumber];
+      if (getters.getDataOfCurrentSchedule
+          && getters.getDataOfCurrentSchedule.pools) {
+        return getters.getDataOfCurrentSchedule.pools['pool' + poolNumber];
       } else {
         return {};
       }
     },
-    getTeamData : (state) => (teamName) => {
-      if(state.data.pools){
+    getTeamData: (state) => (teamName) => {
+      if (state.data.pools) {
         const matchedTeams = Object.keys(state.data.pools).filter(
             key => key.startsWith("pool")).flatMap(
-            key => state.data.pools[key]).filter(team => team.team===teamName);
+            key => state.data.pools[key]).filter(
+            team => team.team === teamName);
 
-        if(matchedTeams.length >0){
+        if (matchedTeams.length > 0) {
           return matchedTeams[0];
-        }else{
+        } else {
           return {};
         }
       }
     },
-    isLocked: state =>  {
-      return state.data['locked'] ;
+    isLocked: (state, getters ) => {
+      if(!getters.getDataOfCurrentSchedule){
+        return true;
+      }
+      return getters.getDataOfCurrentSchedule['locked'];
     }
   }
 
