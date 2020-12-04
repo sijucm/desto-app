@@ -5,7 +5,7 @@ module.exports = async function (context, req, matchData, teamPools) {
 
   if (req.body) {
 
-    context.log('request body is '+req.body);
+    context.log('request body is ' + req.body);
 
     if (!teamPools || !matchData) {
       // without existing data not happy
@@ -24,6 +24,19 @@ module.exports = async function (context, req, matchData, teamPools) {
 
     const poolName = 'pool' + matchId.substring(0, 1);
     const data = matchData;
+    try {
+      const matchEvent = {
+        scheduleId: context.bindingData.scheduleId,
+        poolName: poolName,
+        matchId: matchId,
+        data: req.body,
+        time: new Date().toISOString()
+      };
+      context.bindings.matchEventLogsOut = matchEvent;
+
+    } catch (err) {
+      context.log("Error while storing match event " + err);
+    }
 
     var matchObj = data [poolName].filter(obj => {
       return obj.id === matchId

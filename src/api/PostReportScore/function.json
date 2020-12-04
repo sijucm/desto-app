@@ -53,6 +53,14 @@
       "databaseName": "desto",
       "collectionName": "teampool",
       "connectionStringSetting": "CosmosDBConnection"
+    },
+    {
+      "name": "matchEventLogsOut",
+      "type": "cosmosDB",
+      "direction": "out",
+      "databaseName": "desto",
+      "collectionName": "MatchEventLog",
+      "connectionStringSetting": "CosmosDBConnection"
     }
   ]
 }
