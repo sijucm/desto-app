@@ -36,7 +36,7 @@
 <script>
 import ReportScoreTeam from "@/components/view/reportScore/team/ReportScoreTeam";
 import axios from "axios";
-import {mapGetters, mapMutations} from "vuex";
+import {mapActions, mapGetters, mapMutations} from "vuex";
 
 const maxGoals = 20;
 export default {
@@ -63,6 +63,7 @@ export default {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/');
     },
     ...mapMutations('matches', ['updateData']),
+    ...mapActions('teampools', ['loadData']),
     submitResult(){
       if (!this.canChangeScore) {
         //TODO-1: change this to a notification
@@ -96,6 +97,7 @@ export default {
         console.log("updating matches "+ currentScheduleId);
         const scheduleId = currentScheduleId;
         this.updateData({scheduleId, results});
+        this.loadData(scheduleId);
         this.$router.go(-1);
       })
       .catch(error => console.log(error));

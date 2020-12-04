@@ -91,9 +91,9 @@ module.exports = async function (context, matchId, poolName, matchData,
       poolTeam1Standings.d += 1;
     }
 
-    poolTeam1Standings.points = poolTeam1Standings.w * 2 + poolTeam1Standings.d
+    poolTeam1Standings.points = poolTeam1Standings.w * 3 + poolTeam1Standings.d
         * 1;
-    poolTeam0Standings.points = poolTeam0Standings.w * 2 + poolTeam0Standings.d
+    poolTeam0Standings.points = poolTeam0Standings.w * 3 + poolTeam0Standings.d
         * 1;
 
   });
