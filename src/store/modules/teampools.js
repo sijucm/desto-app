@@ -40,17 +40,18 @@ export default {
 
     getPoolData: (state, getters) => (poolNumber) => {
 
-      if (state.data['schedule4'] && state.data['schedule4'].pools) {
-        return state.data['schedule4'].pools['pool' + poolNumber];
-      } else {
-        return {};
-      }
+      // if (state.data['schedule4'] && state.data['schedule4'].pools) {
+      //   return state.data['schedule4'].pools['pool' + poolNumber];
+      // } else {
+      //   return {};
+      // }
 
       // console.log("pool number is getter is : " + poolNumber)
       if (getters.getDataOfCurrentSchedule
           && getters.getDataOfCurrentSchedule.pools) {
         return getters.getDataOfCurrentSchedule.pools['pool' + poolNumber];
       } else {
+        console.log("returning empty ");
         return {};
       }
     },

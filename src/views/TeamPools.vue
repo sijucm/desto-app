@@ -21,8 +21,8 @@ export default {
   name: 'TeamPools',
    created() {
     // this.$store.dispatch("teampools/loadData")
-    this.$store.dispatch('loadAllData');
-
+    // this.$store.dispatch('loadAllData');
+    this.loadAllData();
   },
 
   methods: {

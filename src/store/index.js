@@ -49,13 +49,12 @@ export default new Vuex.Store({
   },
   mutations: {},
   actions: {
-    async loadAllData({state, dispatch}, scheduleIdIndex) {
+     loadAllData({state, dispatch}, scheduleIdIndex) {
 
       if(!scheduleIdIndex){
         scheduleIdIndex = state.selectedSchedule;
       }
       const scheduleId = state.availableSchedules[scheduleIdIndex] ;
-      console.log("loading schedule "+scheduleId);
 
 
       dispatch('teampools/loadData', scheduleId, {root: true})
