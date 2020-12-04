@@ -7,23 +7,38 @@ export default {
   },
 
   mutations: {
-    updateData(state, data) {
-      state.data = data;
+    updateData(state, {scheduleId, results}) {
+      console.log(" matches updating scheduleid " + scheduleId);
+
+      const data = {};
+      data[scheduleId] = results.data;
+      state.data = {...state.data, ...data};
     }
   },
 
   getters: {
 
-    getMatches: state => poolNumber => {
-      return state.data['pool' + poolNumber];
+    getDataOfCurrentSchedule(state, getters, rootState, rootGetters) {
+      console.log(" current scheduleId in matches "
+          + rootGetters.getCurrentScheduleId);
+      return state.data[rootGetters.getCurrentScheduleId];
+    },
+
+    getMatches: (state, getters) => poolNumber => {
+      if(getters.getDataOfCurrentSchedule) {
+        return getters.getDataOfCurrentSchedule['pool' + poolNumber];
+      }
 
     },
-    getMatchesForTeam: state => teamName => {
-      const poolNameList = Object.keys(state.data).filter(
+    getMatchesForTeam: (state, getters) => teamName => {
+
+      const dataForCurrentSchedule = getters.getDataOfCurrentSchedule;
+
+      const poolNameList = Object.keys(dataForCurrentSchedule).filter(
           keyName => keyName.startsWith('pool'));
 
 
-      return poolNameList.flatMap(poolName => state.data[poolName]).filter(
+      return poolNameList.flatMap(poolName => dataForCurrentSchedule[poolName]).filter(
           match => match.teams.includes(teamName));
     },
 
@@ -31,13 +46,19 @@ export default {
 
   actions: {
 
-    loadData({commit }, scheduleId) {
+    loadData({commit, state }, scheduleId) {
+
+
+      console.log("loading matches of scheduleId "+ scheduleId);
+      if(state.data[scheduleId] && state.data[scheduleId]['locked']){
+        return;
+      }
 
         // const currentWeek = rootGetters.getCurrentWeek;
 
       let url = '/api/matches/' + scheduleId;
       axios.get(url)
-        .then((results) => commit('updateData', results.data))
+        .then((results) => commit('updateData', {scheduleId, results}))
         .catch(console.error);
     },
 

@@ -90,10 +90,12 @@ export default {
       console.log("date being sent 2" + JSON.stringify(data));
 
       //{weekId}/match/{matchId}/score
-      const currentWeek = this.$store.state.currentWeek;
-      axios.post('/api/modify/' + currentWeek + '/match/' + this.match.id + '/score', data)
+      const currentScheduleId = this.$store.getters.getCurrentScheduleId;
+      axios.post('/api/modify/' + currentScheduleId+ '/match/' + this.match.id + '/score', data)
       .then((results) => {
-        this.updateData(results.data);
+        console.log("updating matches "+ currentScheduleId);
+        const scheduleId = currentScheduleId;
+        this.updateData({scheduleId, results});
         this.$router.go(-1);
       })
       .catch(error => console.log(error));

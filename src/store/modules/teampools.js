@@ -3,19 +3,22 @@ import axios from "axios";
 export default {
   namespaced: true,
   state: {
-    data: {}
+    data: {},
+
 
   },
   mutations: {
     updateData(state, {scheduleId, results}) {
-      console.log("teampools updated "+scheduleId);
-      state.data[scheduleId] = results.data;
+      const data = {};
+      data[scheduleId] = results.data;
+      state.data = {...state.data, ...data};
     },
   },
 
   actions: {
-    loadData({commit, state}, scheduleId) {
+    async loadData({commit, state}, scheduleId) {
 
+      console.log("loading "+scheduleId);
       if(state.data[scheduleId] && state.data[scheduleId]['locked']){
         return;
       }
@@ -38,15 +41,9 @@ export default {
       return state.data[rootGetters.getCurrentScheduleId];
     },
 
-    getPoolData: (state, getters) => (poolNumber) => {
+    getPoolData: (state, getters ) => (poolNumber) => {
 
-      // if (state.data['schedule4'] && state.data['schedule4'].pools) {
-      //   return state.data['schedule4'].pools['pool' + poolNumber];
-      // } else {
-      //   return {};
-      // }
 
-      // console.log("pool number is getter is : " + poolNumber)
       if (getters.getDataOfCurrentSchedule
           && getters.getDataOfCurrentSchedule.pools) {
         return getters.getDataOfCurrentSchedule.pools['pool' + poolNumber];
@@ -55,11 +52,11 @@ export default {
         return {};
       }
     },
-    getTeamData: (state) => (teamName) => {
-      if (state.data.pools) {
-        const matchedTeams = Object.keys(state.data.pools).filter(
+    getTeamData: (state, getters) => (teamName) => {
+      if (getters.getDataOfCurrentSchedule.pools) {
+        const matchedTeams = Object.keys(getters.getDataOfCurrentSchedule.pools).filter(
             key => key.startsWith("pool")).flatMap(
-            key => state.data.pools[key]).filter(
+            key => getters.getDataOfCurrentSchedule.pools[key]).filter(
             team => team.team === teamName);
 
         if (matchedTeams.length > 0) {
