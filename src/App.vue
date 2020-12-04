@@ -85,7 +85,7 @@ export default {
   data() {
     return {
       title: {
-        long: 'Teams',
+        long: 'Teams app',
         short: '',
       },
       home, football
