@@ -14,7 +14,7 @@
             <div class="col">
 
               <header class="pt-2 px-2 px-md-0 py-md-4">
-                <h2 class="text-gray"><router-link to="/">{{ title.long }}</router-link></h2>
+                <h2 class="text-gray"><router-link to="/"><span v-html="football"></span> </router-link></h2>
                 <h6>{{ title.short }}</h6>
               </header>
             </div>
@@ -77,6 +77,7 @@
 
 import Main from "@/layouts/Main";
 import LoginUser from "@/components/user/LoginUser";
+import {home, football} from "@/assets/icons.js"
 
 export default {
   name: "App",
@@ -86,7 +87,8 @@ export default {
       title: {
         long: 'Teams',
         short: '',
-      }
+      },
+      home, football
     };
   }
 };
