@@ -1,0 +1,40 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get",
+        "post"
+      ]
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "name": "teamPools",
+      "type": "cosmosDB",
+      "direction": "in",
+      "databaseName": "desto",
+      "collectionName": "teampool",
+      "id": "schedule4",
+      "partitionKey": "schedule4",
+      "connectionStringSetting": "CosmosDBConnection"
+    },
+    {
+      "name": "matchData",
+      "type": "cosmosDB",
+      "direction": "in",
+      "databaseName": "desto",
+      "createIfNotExists": false,
+      "collectionName": "matchdata",
+      "id": "schedule4",
+      "partitionKey": "schedule4",
+      "connectionStringSetting": "CosmosDBConnection"
+    }
+  ]
+}

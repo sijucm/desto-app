@@ -1,0 +1,30 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get",
+      ],
+      "route": "{Id}/matchEvents"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "name": "matchData",
+      "type": "cosmosDB",
+      "direction": "in",
+      "databaseName": "desto",
+      "createIfNotExists": false,
+      "collectionName": "matchdata",
+      "id": "{id}",
+      "partitionKey": "{id}",
+      "connectionStringSetting": "CosmosDBConnection"
+    }
+  ]
+}
