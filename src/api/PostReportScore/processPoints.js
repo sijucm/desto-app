@@ -1,4 +1,4 @@
-module.exports = async function (context, matchId, poolName, matchData,
+module.exports = async function (context, poolName, matchData,
     teamPools) {
 
   // context.log(matchId);

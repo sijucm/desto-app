@@ -12,10 +12,20 @@ module.exports = async function (context, req, matchData, teamPools) {
       return;
     }
 
-    if (teamPools['locked']) {
+    const header = req.headers["x-ms-client-principal"];
+    console.log(JSON.stringify(header));
+    // const encoded = Buffer.from(header, "base64");
+    // const decoded = encoded.toString("ascii");
+
+    // console.log(JSON.stringify(decoded));
+
+    if (teamPools['locked'] && 1==2) {
       console.log("cannot change. Team pool is locked "
           + context.bindingData.scheduleId);
       // cannot change any more
+      context.res = {
+        body: matchData
+      };
       return;
     }
 
@@ -57,7 +67,7 @@ module.exports = async function (context, req, matchData, teamPools) {
       };
 
       context.log(
-          await processPoints(context, matchId, poolName, data, teamPools));
+          await processPoints(context, poolName, data, teamPools));
 
     } else {
       context.res = {
