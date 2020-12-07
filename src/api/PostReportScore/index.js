@@ -67,7 +67,7 @@ module.exports = async function (context, req, matchData, teamPools) {
       };
 
       // triggering point calculation. This could be made asycn event later
-      await processPoints(poolName, _matchDataUpdated, teamPools);
+      processPoints(poolName, _matchDataUpdated, teamPools);
       // updating the team pools here. This could be moved to another function.\
       // But just kept here for cheap performance/cost
       context.bindings.teamPoolsUpdate = teamPools;
