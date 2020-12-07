@@ -9,7 +9,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     selectedSchedule: 3,
-    availableSchedules: ['schedule1', 'schedule2', 'schedule3', 'schedule4'],
+    availableSchedules: ['schedule1', 'schedule2', 'schedule3', 'schedule4', 'schedule5'],
     poolNames: {
       1: {divisionName: 'Premier League', subPoolName: 'Poule 1'},
       2: {divisionName: 'Premier League', subPoolName: 'Poule 2'},
