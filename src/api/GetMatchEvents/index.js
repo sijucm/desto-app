@@ -1,7 +1,6 @@
 module.exports = async function (context, req, matchData) {
   context.log('JavaScript HTTP trigger function processed a request.');
 
-
   const getMatches = (poolName) => {
     const d = {};
     const p = matchData[poolName];
@@ -14,12 +13,9 @@ module.exports = async function (context, req, matchData) {
 
   }
 
-  const retData = Object.keys(matchData).filter(key => key.startsWith("pool")).map(
+  const retData = Object.keys(matchData).filter(
+      key => key.startsWith("pool")).map(
       key => getMatches(key));
-
-  const formattedText = "";
-
-  retData.
 
   context.res = {
     // status: 200, /* Defaults to 200 */
