@@ -67,6 +67,10 @@ export default {
       }
     },
     isLocked: (state, getters ) => {
+      if (process.env.NODE_ENV === 'development') {
+          return false;
+      }
+
       if(!getters.getDataOfCurrentSchedule){
         return true;
       }
