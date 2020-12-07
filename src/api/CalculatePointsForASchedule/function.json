@@ -1,0 +1,50 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "post"
+      ],
+      "route": "modify/{scheduleId}/teamPools/standings"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "name": "matchData",
+      "type": "cosmosDB",
+      "direction": "in",
+      "databaseName": "desto",
+      "createIfNotExists": false,
+      "collectionName": "matchdata",
+      "id": "{scheduleId}",
+      "partitionKey": "{scheduleId}",
+      "connectionStringSetting": "CosmosDBConnection"
+    },
+    {
+      "name": "teamPools",
+      "type": "cosmosDB",
+      "direction": "in",
+      "databaseName": "desto",
+      "collectionName": "teampool",
+      "id": "{scheduleId}",
+      "partitionKey": "{scheduleId}",
+      "connectionStringSetting": "CosmosDBConnection"
+    },
+
+    {
+      "name": "teamPoolsUpdate",
+      "type": "cosmosDB",
+      "direction": "out",
+      "databaseName": "desto",
+      "collectionName": "teampool",
+      "connectionStringSetting": "CosmosDBConnection"
+    }
+
+  ]
+}
