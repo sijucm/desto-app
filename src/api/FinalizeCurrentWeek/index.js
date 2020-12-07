@@ -102,8 +102,7 @@ function removeTeamFromPool(newTeamPools, poolName, toBeRemovedTeamName) {
 
 }
 
-function createNewTeamPool(teampools) {
-  const newTeamPools = teampools;
+function createNewTeamPool(newTeamPools) {
 
   newTeamPools.id = "schedule" + (currentScheduleIdNumber + 1);
 
@@ -177,10 +176,13 @@ module.exports = async function (context, req, currentTeamPools) {
       + ". This HTTP triggered function executed successfully."
       : "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.";
 
-  const newTeamPools = createNewTeamPool(currentTeamPools);
+  const newTeamPools = createNewTeamPool(JSON.parse(JSON.stringify(currentTeamPools)));
   const newMatchData = createAllMatches(newTeamPools);
 
+
+
   context.bindings.newMatchData = newMatchData;
+  newTeamPools['locked'] = false;
   context.bindings.newTeamPools = newTeamPools;
   const currentTeamPoolsUpdated = currentTeamPools;
   currentTeamPoolsUpdated['locked'] = true;
@@ -191,37 +193,3 @@ module.exports = async function (context, req, currentTeamPools) {
     body: responseMessage
   };
 }
-//
-// function createMatch() {
-//
-//   const fieldList = ["F1", "F2"];
-//   const newMatchData = {"id": "" + (currentScheduleId + 1)};
-//   // IMPORTANT: please note that this starts with 1 and not 0
-//   for (let i = 1; i <= numberOfPools; i++) {
-//     const poolName = 'pool' + i;
-//     const currentPoolMatchList = newMatchData[poolName] = [];
-//
-//     const currentPoolTeamList = newTeamPools[poolName].map(team => team.team);
-//
-//     if (!currentPoolMatchList.length === 4) {
-//       return;
-//     }
-//
-//     currentPoolMatchList.push({
-//       "id": "",
-//       "field": fieldList[0],
-//       "time": "",
-//       teams: [currentPoolTeamList[0], currentPoolTeamList[3]]
-//     })
-//
-//     // currentPoolMatchList.push()
-//
-//   }
-// }
-
-// match team[0] with team [3] F1
-// match team[1] with team[2]  F2
-// match team[0] with team[2] F1
-// match team[1] with team [3] F2
-// match team[0] with team[1] F2
-// match team[2] with team[3] F1
