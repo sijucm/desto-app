@@ -1,10 +1,5 @@
-module.exports = async function (context, poolName, matchData,
-    teamPools) {
-
-  // context.log(matchId);
-  // context.log(poolName);
-  // context.log(matchObj);
-  // context.log(teamPools);
+const updatePointsForAPool =  ( poolName, matchData,
+    teamPools) => {
 
   const poolData = teamPools.pools[poolName];
   const matchDataForPool = matchData[poolName];
@@ -12,7 +7,6 @@ module.exports = async function (context, poolName, matchData,
   const matchesWithResults = matchDataForPool.filter(
       match => match.results).map(match => match.results);
 
-  // context.log("Matches with results : "+JSON.stringify(matchesWithResults));
 
   const standingDefault = {
     "mp": 0,
@@ -23,25 +17,25 @@ module.exports = async function (context, poolName, matchData,
     "points": 0
   };
 
+  // resetting the current standings and points
   poolData.forEach(team => {
     team["standings"] = {...standingDefault};
     team.rank = 0
   });
 
+  //processing each match with results
   matchesWithResults.forEach(match => {
 
-    context.log('processing match ' + JSON.stringify(match));
+    console.log('processing match ' + JSON.stringify(match));
 
     const teamList = Object.keys(match).map(teamName => {
       return {'team': teamName, 'goals': match[teamName]}
     });
 
-    context.log(" Team result in the match: " + JSON.stringify(teamList));
+    console.log(" Team result in the match: " + JSON.stringify(teamList));
 
     const team0 = poolData.filter(
         team => team.team === teamList[0].team)[0];
-
-    context.log(" pooldata initial of team0 : " + JSON.stringify(team0));
 
     const team1 = poolData.filter(
         team => team.team === teamList[1].team)[0];
@@ -49,7 +43,7 @@ module.exports = async function (context, poolName, matchData,
     // if team0 or team1 are not matching the pool. Should not happen
     // TODO But this check should happen while accessing the array above
     if (!(team0 && team1)) {
-      context.log(
+      console.log(
           "Teams cannot be identified during processing of points. team0:"
           + team0 + " team1:" + team1)
       return;
@@ -58,16 +52,14 @@ module.exports = async function (context, poolName, matchData,
 
     // if the goals are empty then this can be ignored as a result. Could happen
     if (!(teamList[0]['goals'] !=null && teamList[1]['goals']!=null)) {
-      context.log(
+      console.log(
           "goals are not present for the teams while processing points. team0: "
           + teamList[0]['goals'] + "team1: " + teamList[1]['goals'])
       return;
     }
 
-    context.log("pooldata initial of team1 " + JSON.stringify(team1));
 
     const poolTeam0Standings = team0.standings;
-
     const poolTeam1Standings = team1.standings;
 
     poolTeam0Standings.mp += 1;
@@ -91,10 +83,8 @@ module.exports = async function (context, poolName, matchData,
       poolTeam1Standings.d += 1;
     }
 
-    poolTeam1Standings.points = poolTeam1Standings.w * 3 + poolTeam1Standings.d
-        * 1;
-    poolTeam0Standings.points = poolTeam0Standings.w * 3 + poolTeam0Standings.d
-        * 1;
+    poolTeam0Standings.points = poolTeam0Standings.w * 3 + poolTeam0Standings.d;
+    poolTeam1Standings.points = poolTeam1Standings.w * 3 + poolTeam1Standings.d;
 
   });
 
@@ -115,6 +105,9 @@ module.exports = async function (context, poolName, matchData,
 
   //rank1.points === rank2.points then
 
-  context.bindings.teamPoolsUpdate = teamPools;
+  return teamPools;
+  // context.bindings.teamPoolsUpdate = teamPools;
 
 }
+
+module.exports = updatePointsForAPool;

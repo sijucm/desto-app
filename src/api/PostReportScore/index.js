@@ -1,4 +1,4 @@
-const processPoints = require('./processPoints.js');
+const processPoints = require('../modules/processPoints.js');
 
 module.exports = async function (context, req, matchData, teamPools) {
   context.log('JavaScript HTTP trigger function processed a request. ');
@@ -19,7 +19,7 @@ module.exports = async function (context, req, matchData, teamPools) {
 
     // console.log(JSON.stringify(decoded));
 
-    if (teamPools['locked'] && 1==2) {
+    if (teamPools['locked']) {
       console.log("cannot change. Team pool is locked "
           + context.bindingData.scheduleId);
       // cannot change any more
@@ -33,7 +33,7 @@ module.exports = async function (context, req, matchData, teamPools) {
     var matchId = context.bindingData.matchId;
 
     const poolName = 'pool' + matchId.substring(0, 1);
-    const data = matchData;
+    const _matchDataUpdated = matchData;
     try {
       const matchEvent = {
         scheduleId: context.bindingData.scheduleId,
@@ -48,7 +48,7 @@ module.exports = async function (context, req, matchData, teamPools) {
       context.log("Error while storing match event " + err);
     }
 
-    var matchObj = data [poolName].filter(obj => {
+    var matchObj = _matchDataUpdated [poolName].filter(obj => {
       return obj.id === matchId
     })
 
@@ -60,14 +60,17 @@ module.exports = async function (context, req, matchData, teamPools) {
 
       matchObj[0]['results'] = req.body;
 
-      context.bindings.matchDataUpdated = data;
+      context.bindings.matchDataUpdated = _matchDataUpdated;
 
       context.res = {
-        body: data
+        body: _matchDataUpdated
       };
 
-      context.log(
-          await processPoints(context, poolName, data, teamPools));
+      // triggering point calculation. This could be made asycn event later
+      await processPoints(poolName, _matchDataUpdated, teamPools);
+      // updating the team pools here. This could be moved to another function.\
+      // But just kept here for cheap performance/cost
+      context.bindings.teamPoolsUpdate = teamPools;
 
     } else {
       context.res = {
