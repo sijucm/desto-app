@@ -8,11 +8,11 @@
       <div class="card-text">
 
 
+        <team-list :pool-number="this.poolNumber"></team-list>
 
-
-         <team-list :pool-number="this.poolNumber"></team-list>
-
-         <match-list :pool-number="this.poolNumber" :show-toggle-show-matches="true" :matches="this.getMatches(this.poolNumber)"></match-list>
+        <!--         <match-list :pool-number="this.poolNumber" :show-toggle-show-matches="true" :matches="this.getMatches(this.poolNumber)"></match-list>-->
+        <match-list-main :pool-number="this.poolNumber" :show-toggle-show-matches="true"
+                         :matches="this.getMatches(this.poolNumber)"></match-list-main>
 
 
       </div>
@@ -24,16 +24,16 @@
 
 <script>
 import {mapGetters} from "vuex";
-import MatchList from "@/components/view/MatchList";
 import TeamList from "@/components/view/TeamList";
 
 import {champion} from "@/assets/icons"
+import MatchListMain from "@/components/view/matchlist/MatchListMain";
 
 export default {
   name: "PoolView",
-  components: {TeamList, MatchList},
-  data (){
-    return{
+  components: {MatchListMain, TeamList },
+  data() {
+    return {
       champion
     }
   },

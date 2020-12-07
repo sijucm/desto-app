@@ -2,13 +2,13 @@
   <div>
 
 
-    <div class="card mx-3">
+    <div class="card mx-2 ">
       <h5 class="card-title text-center">{{teamName}}</h5>
       <ul class="list-group list-group-flush">
         <li class="list-group-item my-0">
           <team-stand :team="this.getTeamData(this.teamName)"></team-stand>
         </li>
-        <li class="list-group-item text-center">
+        <li class="list-group-item px-0 text-center">
           <match-list  :show-toggle-show-matches="false" :pool-number="99"
                       :matches="this.getMatchesForTeam(teamName)"></match-list>
         </li>
