@@ -10,7 +10,7 @@
         </li>
         <li class="list-group-item px-0 text-center">
           <match-list :show-toggle-show-matches="false" :pool-number="99"
-                      :matches="this.getMatchesForTeam(teamName)"></match-list>
+                      :matches="getMatches()"></match-list>
         </li>
         <li class="list-group-item">
           <button type="submit" @click="$router.push('/')"
@@ -57,6 +57,12 @@ export default {
     loadPastMatches() {
       console.log("load past ")
       this.loadData(this.teamName);
+    },
+    getMatches(){
+
+      let matchList = JSON.parse(JSON.stringify(this.getMatchesForTeam(this.teamName)));
+      matchList.forEach(match => match.teams.sort((a,) => a === this.teamName? -1 : 1));
+      return matchList;
     },
     getPastMatchesForTeam() {
 
