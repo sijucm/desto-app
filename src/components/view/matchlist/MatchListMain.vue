@@ -10,7 +10,7 @@
     </h5>
     <h6 class="card-subtitle ml-2"></h6>
     <ul v-show="showMatches" class="list-group list-group-flush" >
-      <li class="list-group-item match-card" v-for="match in this.matches"
+      <li class="list-group-item match-card px-0" v-for="match in this.matches"
           :key="match.id">
         <match-view-main :results="match.results?match.results:{}"
                          :teams="match.teams"></match-view-main>
@@ -34,10 +34,6 @@ export default {
     };
   },
   props: {
-    poolNumber: {
-      type: Number,
-      required: true,
-    },
     matches: {},
     showToggleShowMatches:{
       type: Boolean,

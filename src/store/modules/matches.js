@@ -56,7 +56,7 @@ export default {
 
         // const currentWeek = rootGetters.getCurrentWeek;
 
-      let url = '/api/matches/' + scheduleId;
+      let url = '/api/'+scheduleId+'/matches/';
       axios.get(url)
         .then((results) => commit('updateData', {scheduleId, results}))
         .catch(console.error);

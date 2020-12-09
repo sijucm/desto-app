@@ -5,9 +5,17 @@
 
       <div class="row align-items-center no-gutters">
         <div class="col  text-right mr-2 ">{{ teams[0] }}</div>
-        <div class="col score-a goals pr-1 text-right"> {{ results.hasOwnProperty(teams[0]) && results[teams[0]] !=null ?results[teams[0]]:"" }}</div>
+        <div class="col-auto  text-center"><result-badge-view :shown="getClassForTeamZero"></result-badge-view></div>
+        <div class="col score-a goals text-right"> {{
+            results.hasOwnProperty(teams[0]) && results[teams[0]] != null ? results[teams[0]] : ""
+          }}
+        </div>
         <div class="col-auto  goals p-0 m-0">-</div>
-        <div class="col score-a goals pl-1 text-left ">{{ results.hasOwnProperty(teams[1])  && results[teams[1]] !=null ?results[teams[1]]:"" }}</div>
+        <div class="col score-a goals text-left">{{
+            results.hasOwnProperty(teams[1]) && results[teams[1]] != null ? results[teams[1]] : ""
+          }}
+        </div>
+        <div class="col-auto d-xs-none d-sm-block text-center"><result-badge-view :shown="getClassForTeamOne"></result-badge-view></div>
         <div class="col text-left ml-2">{{ teams[1] }}</div>
       </div>
 
@@ -15,15 +23,15 @@
     </div>
 
 
-
   </div>
 </template>
 
 <script>
 
+import ResultBadgeView from "@/components/view/ResultBadgeView";
 export default {
   name: "MatchViewMain",
-  components: {},
+  components: {ResultBadgeView},
   props: {
     results: {
       type: Object,
@@ -34,10 +42,13 @@ export default {
       required: true
     }
   },
+  methods: {
+
+  },
   computed: {
     getClassForTeamZero() {
-      if(!( Object.prototype.hasOwnProperty.call(this.results, this.teams[0])
-          && Object.prototype.hasOwnProperty.call(this.results, this.teams[1]))){
+      if (!(Object.prototype.hasOwnProperty.call(this.results, this.teams[0])
+          && Object.prototype.hasOwnProperty.call(this.results, this.teams[1]))) {
         return 0;
       }
 
@@ -46,12 +57,12 @@ export default {
       } else if (this.results[this.teams[0]] === this.results[this.teams[1]]) {
         return 2;
       } else {
-        return 0;
+        return 3;
       }
     },
     getClassForTeamOne() {
-      if(!( Object.prototype.hasOwnProperty.call(this.results, this.teams[0])
-          && Object.prototype.hasOwnProperty.call(this.results, this.teams[1]))){
+      if (!(Object.prototype.hasOwnProperty.call(this.results, this.teams[0])
+          && Object.prototype.hasOwnProperty.call(this.results, this.teams[1]))) {
         return 0;
       }
       if (this.results[this.teams[1]] > this.results[this.teams[0]]) {
@@ -59,7 +70,7 @@ export default {
       } else if (this.results[this.teams[1]] === this.results[this.teams[0]]) {
         return 2;
       } else {
-        return 0;
+        return 3;
       }
 
     },
@@ -81,7 +92,7 @@ export default {
 @media (min-width: 400px) {
   .goals {
     /*font-size: 20px;*/
-}
+  }
 }
 
 </style>

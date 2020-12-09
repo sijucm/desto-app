@@ -3,24 +3,35 @@
 
 
     <div class="card mx-2 ">
-      <h5 class="card-title text-center">{{teamName}}</h5>
+      <h5 class="card-title text-center">{{ teamName }}</h5>
       <ul class="list-group list-group-flush">
         <li class="list-group-item my-0">
           <team-stand :team="this.getTeamData(this.teamName)"></team-stand>
         </li>
         <li class="list-group-item px-0 text-center">
-          <match-list  :show-toggle-show-matches="false" :pool-number="99"
+          <match-list :show-toggle-show-matches="false" :pool-number="99"
                       :matches="this.getMatchesForTeam(teamName)"></match-list>
         </li>
         <li class="list-group-item">
           <button type="submit" @click="$router.push('/')"
-                  class="btn btn-primary float-right mr-4">back
+                  class="btn btn-secondary float-right mr-2">home
           </button>
         </li>
       </ul>
+
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item match-card">
+          <button type="link" @click="loadPastMatches()"
+                  class="btn btn-link float-right mr-2">Show all matches
+          </button>
+        </li>
+        <li class="list-group-item match-card" v-for="(match) in getPastMatchesForTeam()"
+            :key="match.id+Math.random()">
+          <match-view-main :results="match.results?match.results:{}"
+                           :teams="match.teams"></match-view-main>
+        </li>
+      </ul>
     </div>
-
-
 
 
   </div>
@@ -28,19 +39,34 @@
 
 <script>
 import MatchList from "@/components/view/MatchList";
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import TeamStand from "@/components/view/TeamStand";
+import MatchViewMain from "@/components/view/matchlist/MatchViewMain";
 
 export default {
   name: "TeamView",
-  components: {TeamStand, MatchList},
+  components: {MatchViewMain, TeamStand, MatchList},
   props: {
     teamName: {
       type: String,
       required: true
     }
   },
+  methods: {
+
+    loadPastMatches() {
+      console.log("load past ")
+      this.loadData(this.teamName);
+    },
+    getPastMatchesForTeam() {
+
+      return this.getPastTeamMatches(this.teamName);
+    },
+    ...mapActions('teamMatches', ['loadData'])
+  },
   computed: {
+
+    ...mapGetters('teamMatches', ['getPastTeamMatches']),
     ...mapGetters('matches', ['getMatchesForTeam']),
     ...mapGetters('teampools', ['getTeamData']),
   }

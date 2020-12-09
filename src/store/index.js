@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import teampools from '@/store/modules/teampools';
 import matches from "@/store/modules/matches";
 import user from "@/store/modules/auth/user";
+import teamMatches from "@/store/modules/teammatches";
 
 Vue.use(Vuex);
 
@@ -75,6 +76,6 @@ export default new Vuex.Store({
 
   },
   modules: {
-    teampools, matches, user
+    teampools, matches, user, teamMatches
   },
 });

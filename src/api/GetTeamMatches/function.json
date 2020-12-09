@@ -6,9 +6,9 @@
       "direction": "in",
       "name": "req",
       "methods": [
-        "get",
+        "get"
       ],
-      "route": "{scheduleId}/matches"
+      "route": "matches/{teamName}"
     },
     {
       "type": "http",
@@ -16,15 +16,14 @@
       "name": "res"
     },
     {
-      "name": "matchData",
+      "name": "matchDataList",
       "type": "cosmosDB",
       "direction": "in",
       "databaseName": "desto",
       "createIfNotExists": false,
       "collectionName": "matchdata",
-      "id": "{scheduleId}",
-      "partitionKey": "{scheduleId}",
       "connectionStringSetting": "CosmosDBConnection"
     }
   ]
 }
+
