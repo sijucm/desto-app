@@ -13,23 +13,25 @@
                       :matches="getMatches()"></match-list>
         </li>
         <li class="list-group-item">
-          <button type="submit" @click="$router.push('/')"
-                  class="btn btn-secondary float-right mr-2">home
-          </button>
-        </li>
-      </ul>
-
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item match-card">
           <button type="link" @click="loadPastMatches()"
-                  class="btn btn-link float-right mr-2">Show all matches
+                  class="btn  btn-primary float-right ">show all matches
           </button>
+
+          <button type="submit" @click="$router.push('/')"
+                  class="btn btn-secondary float-left mr-2">back
+          </button>
+
+
         </li>
-        <li class="list-group-item match-card" v-for="(match) in getPastMatchesForTeam()"
+        <li class="list-group-item" v-for="(match) in getPastMatchesForTeam()"
             :key="match.id+Math.random()">
           <match-view-main :results="match.results?match.results:{}"
                            :teams="match.teams"></match-view-main>
         </li>
+      </ul>
+
+      <ul class="list-group list-group-flush">
+
       </ul>
     </div>
 

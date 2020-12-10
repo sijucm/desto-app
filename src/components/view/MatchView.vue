@@ -15,7 +15,7 @@
       </div>
 
 
-      <router-link v-if="this.canChangeScore() && !this.isLocked()" class="float-right mt-2"
+      <router-link v-if="this.canChangeScore() && !this.isLocked()" class="float-right mt-2 mr-2"
                    :to="{name: 'ReportScore', params:{match}}">{{
           match.results ? 'Change results' : 'Start match'
         }}
