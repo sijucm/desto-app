@@ -14,7 +14,10 @@
             <div class="col">
 
               <header class="pt-2 px-2 px-md-0 py-md-4">
-                <h2 class="text-gray"><router-link to="/"><span v-html="football"></span> </router-link></h2>
+                <router-link class="justify-content-center" to="/">
+                  <img  :src="iconUrl"/>
+<!--                  <span v-html="football"></span>-->
+                </router-link>
                 <h6>{{ title.short }}</h6>
               </header>
             </div>
@@ -84,6 +87,7 @@ export default {
   components: {LoginUser, Main},
   data() {
     return {
+      iconUrl: require('./assets/redhasdot.png'),
       title: {
         long: 'Teams app',
         short: '',
