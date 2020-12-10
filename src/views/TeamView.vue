@@ -54,6 +54,11 @@ export default {
       required: true
     }
   },
+  created() {
+    this.loadAllData();
+
+  },
+
   methods: {
 
     loadPastMatches() {
@@ -70,7 +75,8 @@ export default {
 
       return this.getPastTeamMatches(this.teamName);
     },
-    ...mapActions('teamMatches', ['loadData'])
+    ...mapActions('teamMatches', ['loadData']),
+    ...mapActions(['loadAllData']),
   },
   computed: {
 

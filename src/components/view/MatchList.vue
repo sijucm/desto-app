@@ -6,11 +6,13 @@
           :key="match.id">
         <match-view :match="match"></match-view>
       </li>
-      <li>
-<!--        IMPORTANT!! The structure has impact on the copy function. Please be careful-->
+
+      <li class="list-group-item match-card py-0 px-0" id="copyItems">
+        <!--        IMPORTANT!! The structure has impact on the copy function. Please be careful-->
         <div class="d-flex flex-row justify-content-center">
           <div class="p-2">
-            <textarea disabled class="form-control mx-2 " rows="3" :value="getMatchExportedText"></textarea>
+            <textarea disabled class="form-control mx-2 " rows="3"
+                      :value="getMatchExportedText"></textarea>
           </div>
           <div class="p-2 align-self-center">
             <button type="submit" @click="copyToClipboard($event)"
@@ -56,7 +58,7 @@ export default {
     toggleShowMatches() {
       this.showMatches = !this.showMatches;
     },
-    copyToClipboard(e){
+    copyToClipboard(e) {
       // console.log("event is ", e);
 
       let data1 = e.target.parentElement;
@@ -68,12 +70,11 @@ export default {
       let data3 = data2.firstChild;
       // console.log(data3)
 
-      let data4 =data3.firstChild
+      let data4 = data3.firstChild
       // console.log(data4)
 
       data4.select();
       document.execCommand("copy");
-
 
     },
   },
@@ -82,12 +83,12 @@ export default {
       // const formatMatchResult = (result) => { return {a} }
       let formattedTet = this.matches.filter(match => match.results).map(match => {
         return match.teams[0]
-        +' vs '
-        + match.teams[1]
-        +'   '
-        + match.results[match.teams[0]]
-            +' - '
-        + match.results[match.teams[1]]
+            + ' vs '
+            + match.teams[1]
+            + '   '
+            + match.results[match.teams[0]]
+            + ' - '
+            + match.results[match.teams[1]]
       });
 
       return formattedTet.join('\n');

@@ -58,8 +58,6 @@ export default new Vuex.Store({
 
       const scheduleId = state.availableSchedules[scheduleIdIndex] ;
 
-      console.log("new schedule Id is "+ scheduleId);
-
       await dispatch('teampools/loadData', scheduleId, {root: true})
       await dispatch('matches/loadData', scheduleId, {root: true})
       await dispatch('user/loadAuthData', null, {root: true})
@@ -67,7 +65,6 @@ export default new Vuex.Store({
     },
 
     async changeCurrentSchedule({state, dispatch}, newScheduleIndex) {
-      console.log("called change current schedule: " + newScheduleIndex)
       if (state.availableSchedules[newScheduleIndex]) {
         await dispatch('loadAllData', newScheduleIndex, {root: true});
         state.selectedSchedule = newScheduleIndex;
