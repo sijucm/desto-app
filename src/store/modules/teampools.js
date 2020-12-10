@@ -5,7 +5,6 @@ export default {
   state: {
     data: {},
 
-
   },
   mutations: {
     updateData(state, {scheduleId, results}) {
@@ -18,8 +17,8 @@ export default {
   actions: {
     async loadData({commit, state}, scheduleId) {
 
-      console.log("loading "+scheduleId);
-      if(state.data[scheduleId] && state.data[scheduleId]['locked']){
+      console.log("loading " + scheduleId);
+      if (state.data[scheduleId] && state.data[scheduleId]['locked']) {
         return;
       }
 
@@ -41,8 +40,7 @@ export default {
       return state.data[rootGetters.getCurrentScheduleId];
     },
 
-    getPoolData: (state, getters ) => (poolNumber) => {
-
+    getPoolData: (state, getters) => (poolNumber) => {
 
       if (getters.getDataOfCurrentSchedule
           && getters.getDataOfCurrentSchedule.pools) {
@@ -53,8 +51,10 @@ export default {
       }
     },
     getTeamData: (state, getters) => (teamName) => {
-      if (getters.getDataOfCurrentSchedule.pools) {
-        const matchedTeams = Object.keys(getters.getDataOfCurrentSchedule.pools).filter(
+      if (getters.getDataOfCurrentSchedule
+          && getters.getDataOfCurrentSchedule.pools) {
+        const matchedTeams = Object.keys(
+            getters.getDataOfCurrentSchedule.pools).filter(
             key => key.startsWith("pool")).flatMap(
             key => getters.getDataOfCurrentSchedule.pools[key]).filter(
             team => team.team === teamName);
@@ -66,12 +66,12 @@ export default {
         }
       }
     },
-    isLocked: (state, getters ) => {
+    isLocked: (state, getters) => {
       if (process.env.NODE_ENV === 'development') {
-          return false;
+        return false;
       }
 
-      if(!getters.getDataOfCurrentSchedule){
+      if (!getters.getDataOfCurrentSchedule) {
         return true;
       }
       return getters.getDataOfCurrentSchedule['locked'];
