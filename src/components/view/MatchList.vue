@@ -11,7 +11,7 @@
         <!--        IMPORTANT!! The structure has impact on the copy function. Please be careful-->
         <div class="d-flex flex-row justify-content-center">
           <div class="p-2">
-            <textarea disabled class="form-control mx-2 " rows="3"
+            <textarea  class="form-control mx-2 " rows="3"
                       :value="getMatchExportedText"></textarea>
           </div>
           <div class="p-2 align-self-center">
