@@ -14,6 +14,16 @@
       "type": "http",
       "direction": "out",
       "name": "res"
+    },
+    {
+      "name": "teamPools",
+      "type": "cosmosDB",
+      "direction": "in",
+      "databaseName": "desto",
+      "collectionName": "teampool",
+      "id": "schedule5",
+      "partitionKey": "schedule5",
+      "connectionStringSetting": "CosmosDBConnection"
     }
   ]
 }

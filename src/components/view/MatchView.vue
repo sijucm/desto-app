@@ -2,10 +2,15 @@
 
   <div class="card text-center match-card">
     <div class="float-center align-text-center card-header py-0">
-      <h6 >{{
-         'Time: '+match.time + ' Field: '
-          + match.field
-        }}</h6>
+      <h6>
+        <del>
+          {{
+            'Time: ' + match.time + ' Field: '
+            + match.field
+          }}
+        </del>
+
+      </h6>
     </div>
     <div class="card-body py-0 px-0">
 
