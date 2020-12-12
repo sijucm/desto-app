@@ -24,14 +24,21 @@ export default {
       }
     },
 
-    canChangeScore: (state, getters) => {
-      // if(!this) {
-      //   return true;
-      // }
-      if (getters.getRoles.includes('futadmin')) {
+    isTeamAdmin: (state, getters) => {
+      if (getters.getRoles.includes('futAdmin') || getters.getRoles.includes(
+          'teamAdmin') || getters.getRoles.includes('superAdmin')) {
         return true;
       }
     },
+
+    // canChangeScore: (state, getters) => {
+    //   // if(!this) {
+    //   //   return true;
+    //   // }
+    //   if (getters.getRoles.includes('futadmin')) {
+    //     return true;
+    //   }
+    // },
 
     isLoggedIn: (state, getters) => {
       if (getters.getRoles.includes('authenticated')) {
@@ -45,8 +52,7 @@ export default {
     loadAuthData({commit}) {
 
       //TODO : IMPORTANT, look at this hack for now. This WILL cause problems if not changed later
-      if (process.env.NODE_ENV === 'development'
-          || process.env.NODE_ENV === 'production') {
+      if (process.env.NODE_ENV === 'development') {
 
         const sampleData = {
           "clientPrincipal":
@@ -59,8 +65,8 @@ export default {
                     "Localuser",
                 "userRoles":
                     [
-                      "futadmin",
-                      "destoadmin",
+                      // "futAdmin",
+                      //   "teamAdmin",
                       "anonymous",
                       "authenticated"
                     ]
