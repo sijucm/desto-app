@@ -25,8 +25,8 @@ export default {
     },
 
     isTeamAdmin: (state, getters) => {
-      if (getters.getRoles.includes('futAdmin') || getters.getRoles.includes(
-          'teamAdmin') || getters.getRoles.includes('superAdmin')) {
+      if (getters.getRoles.includes('futadmin') || getters.getRoles.includes(
+          'teamadmin') || getters.getRoles.includes('superadmin')) {
         return true;
       }
     },
