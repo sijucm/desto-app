@@ -33,6 +33,9 @@ export default {
     getMatchesForTeam: (state, getters) => teamName => {
 
       const dataForCurrentSchedule = getters.getDataOfCurrentSchedule;
+      if(!dataForCurrentSchedule){
+        return [];
+      }
 
       const poolNameList = Object.keys(dataForCurrentSchedule).filter(
           keyName => keyName.startsWith('pool'));
