@@ -55,8 +55,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('teampools', ['getPoolData']),
-    ...mapGetters('user', ['canChangeScore']),
+    ...mapGetters('teampools', ['getPoolData', 'canChangeScore']),
   },
   methods: {
     goBack(){

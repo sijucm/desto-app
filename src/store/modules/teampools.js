@@ -66,15 +66,37 @@ export default {
         }
       }
     },
-    isLocked: (state, getters) => {
+    canChangeScore: (state, getters, rootState, rootGetters) => {
       // if (process.env.NODE_ENV === 'development') {
       //   return false;
       // }
 
+      // there is no data
       if (!getters.getDataOfCurrentSchedule) {
-        return true;
+        return false;
       }
-      return getters.getDataOfCurrentSchedule['locked'];
+
+
+      const isLocked = getters.getDataOfCurrentSchedule['locked'];
+
+      // this is global lock, admin also cannot change and the lock level is ignored
+      if(isLocked){
+        return false;
+      }
+
+      const lockLevel = getters.getDataOfCurrentSchedule['lockLevel'];
+
+
+      // anonymous access, anybody can change
+      if(lockLevel && lockLevel==="anonymous"){
+        return true;
+      }else if(lockLevel==="teamAdmin"){
+        const isTeamAdmin = rootGetters['user/isTeamAdmin'];
+        return isTeamAdmin?true:false;
+        // add other levels under this
+      }else{
+        return false;
+      }
     }
   }
 
