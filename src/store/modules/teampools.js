@@ -66,9 +66,9 @@ export default {
       }
     },
     canChangeScore: (state, getters, rootState, rootGetters) => {
-      if (process.env.NODE_ENV === 'development') {
-        return true;
-      }
+      // if (process.env.NODE_ENV === 'development') {
+      //   return true;
+      // }
 
       // there is no data
       if (!getters.getDataOfCurrentSchedule) {

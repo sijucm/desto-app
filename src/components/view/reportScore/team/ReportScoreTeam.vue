@@ -22,6 +22,7 @@
 
 <script>
 import {arrowRight, arrowLeft} from "@/assets/icons.js"
+import {mapGetters} from "vuex";
 
 export default {
   name: "ReportScoreTeam",
@@ -39,6 +40,9 @@ export default {
     return {
       arrowLeft, arrowRight
     }
+  },
+  computed:{
+    ...mapGetters("teampools", ["canChangeScore"])
   }
 }
 </script>
@@ -47,18 +51,18 @@ export default {
 
 .team-name {
   font-size: 50px;
-  background-color: #5a6268;
+  /*background-color: #5a6268;*/
 }
 
 .goal {
   font-size: 60px;
-  background-color: lightslategrey;
+  background-color: #DFCFBE;
 }
 
 .symbols {
   font-size: 60px;
 
-  background-color: #0c5460;
+  background-color: burlywood;
 }
 
 

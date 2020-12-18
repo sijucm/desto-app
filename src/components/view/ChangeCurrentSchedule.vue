@@ -1,20 +1,18 @@
 <template>
-  <div class="container pr-0">
+  <div class="container no-gutters" >
     <div class="row ">
-      <div class="col ">
+      <div class="col-auto px-0">
         <button :class="previousScheduleAvailable?'btn-primary':'btn-secondary'"
-                @click="showPrevious()" type="button" class="btn btn-sm float-right">
+                @click="showPrevious()" type="button" class="btn btn-sm float-right px-1 py-0">
           &lt;
         </button>
       </div>
-      <div class="col-6 text-center">
-        <h5>
+      <div class="col-auto text-center px-1">
           {{ this.$store.getters.getCurrentScheduleObject.name}}
-        </h5>
       </div>
-      <div class="col ">
+      <div class="col-auto px-0 ">
         <button :class="nextScheduleAvailable?'btn-primary':'btn-secondary'"  @click="showNext()" type="button"
-                class="btn btn-sm float-left ">&gt;
+                class="btn btn-sm float-left px-1 py-0">&gt;
         </button>
       </div>
     </div>

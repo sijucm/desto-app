@@ -2,7 +2,6 @@
 
 
 <div>
-  <ChangeCurrentSchedule></ChangeCurrentSchedule>
     <pool-list/>
 </div>
 
@@ -14,10 +13,9 @@
 
 import {mapActions} from "vuex";
 import PoolList from "@/components/view/PoolList";
-import ChangeCurrentSchedule from "@/components/view/ChangeCurrentSchedule";
 
 export default {
-  components: {ChangeCurrentSchedule, PoolList},
+  components: { PoolList},
   name: 'TeamPools',
    created() {
     // this.$store.dispatch("teampools/loadData")

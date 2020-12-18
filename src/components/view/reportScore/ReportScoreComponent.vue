@@ -1,6 +1,6 @@
 <template>
 
-  <div class="container text-center">
+  <div v-if="canChangeScore"  class="container text-center">
     <div class="row py-3">
       <div class="col">
         <report-score-team v-on:increase-goal="increaseGoalTeam0()"

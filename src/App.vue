@@ -9,21 +9,24 @@
         :sdmID="'#123'">
       <template v-slot:titlebar>
 
-        <div class="container">
-          <div class="row">
-            <div class="col">
+        <div class="container no-gutters">
+          <div class="row justify-content-between">
 
-              <header class="pt-2 px-2 px-md-0 py-md-4">
+            <div class="col-auto py-2">
                 <router-link class="justify-content-center" to="/">
                   <img  :src="iconUrl"/>
 <!--                  <span v-html="football"></span>-->
                 </router-link>
                 <h6>{{ title.short }}</h6>
-              </header>
             </div>
-            <div class="col">
 
-              <nav class="navbar navbar-expand-lg navbar-light float-right">
+            <div class="col-auto px-0 pt-3 py-2">
+              <ChangeCurrentSchedule></ChangeCurrentSchedule>
+            </div>
+
+            <div class="col-3 px-3 py-2">
+
+              <nav class="navbar navbar-expand-lg navbar-light float-right px-0 py-0">
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
@@ -81,10 +84,11 @@
 import Main from "@/layouts/Main";
 import LoginUser from "@/components/user/LoginUser";
 import {home, football} from "@/assets/icons.js"
+import ChangeCurrentSchedule from "@/components/view/ChangeCurrentSchedule";
 
 export default {
   name: "App",
-  components: {LoginUser, Main},
+  components: {ChangeCurrentSchedule, LoginUser, Main},
   data() {
     return {
       iconUrl: require('./assets/redhasdot.png'),
