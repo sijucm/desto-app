@@ -3,12 +3,10 @@
   <div class="card text-center match-card">
     <div class="float-center align-text-center card-header py-0">
       <h6>
-        <del>
           {{
             'Time: ' + match.time + ' Field: '
             + match.field
           }}
-        </del>
 
       </h6>
     </div>
