@@ -23,49 +23,65 @@ export default new Vuex.Store({
 
   },
 
+
   getters: {
     getPoolName: state => poolNumber => {
       return state.poolNames[poolNumber];
     },
 
-    getCurrentScheduleId: (state, rootGetters) => {
-      if (rootGetters["matchSettings/getAvailableSchedulesSettings"]
-          && rootGetters["matchSettings/getAvailableSchedulesSettings"][state.selectedSchedule]) {
-        return rootGetters["matchSettings/getAvailableSchedulesSettings"][state.selectedSchedule];
+    getCurrentScheduleObject: (state, getters) => {
+      if (getters["matchSettings/getAvailableSchedulesSettings"]
+          && getters["matchSettings/getAvailableSchedulesSettings"][state.selectedSchedule]) {
+        return getters["matchSettings/getAvailableSchedulesSettings"][state.selectedSchedule];
       } else {
-        return "";
+        return {};
+      }
+
+    },
+
+    getCurrentScheduleId: (state, getters) => {
+
+
+      if (getters.getCurrentScheduleObject.id) {
+       return getters.getCurrentScheduleObject.id;
+      } else {
+        return "schedule6";
       }
 
     },
 
     getAvailableSchedules: (state, rootGetters) => {
-      console.log("available schedules is "
-          + rootGetters["matchSettings/getAvailableSchedulesSettings"]);
       return rootGetters["matchSettings/getAvailableSchedulesSettings"];
-      // return state.availableSchedules;
     }
 
   },
-  mutations: {},
+  mutations: {
+    updateSelectedSchedule(state, newScheduleIndex){
+      state.selectedSchedule = newScheduleIndex
+    }
+
+  },
   actions: {
     async loadAllData({state, getters, dispatch}, scheduleIdIndex) {
 
+      //TO DO this also has a relation to the TO DO later and the order. This need change
       await dispatch("matchSettings/loadData", {root: true});
 
-      if(! getters.getAvailableSchedules){
+      if (!getters.getAvailableSchedules) {
         return;
       }
 
-      if(!state.selectedSchedule) {
+      // TO DO this should be moved to the load of match settings
+      if (!state.selectedSchedule) {
         state.selectedSchedule = getters.getAvailableSchedules.length - 1;
       }
 
-
+      //TO DO this has a strong relation to the above. Move them together
       if (scheduleIdIndex === undefined) {
         scheduleIdIndex = state.selectedSchedule;
       }
 
-      const scheduleId = getters.getAvailableSchedules[scheduleIdIndex];
+      const scheduleId = getters.getAvailableSchedules[scheduleIdIndex].id;
 
       await dispatch('teampools/loadData', scheduleId, {root: true})
       await dispatch('matches/loadData', scheduleId, {root: true})
@@ -73,10 +89,11 @@ export default new Vuex.Store({
 
     },
 
-    async changeCurrentSchedule({state, getters, dispatch}, newScheduleIndex) {
+    async changeCurrentSchedule({state, getters, dispatch, commit}, newScheduleIndex) {
       if (getters.getAvailableSchedules[newScheduleIndex]) {
         await dispatch('loadAllData', newScheduleIndex, {root: true});
-        state.selectedSchedule = newScheduleIndex;
+        commit("updateSelectedSchedule", newScheduleIndex);
+        // state.selectedSchedule = newScheduleIndex;
       }
     }
 

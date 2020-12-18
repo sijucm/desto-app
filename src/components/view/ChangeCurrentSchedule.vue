@@ -9,7 +9,7 @@
       </div>
       <div class="col-6 text-center">
         <h5>
-          Speelronde <b>{{ this.$store.state.selectedSchedule + 1 }}</b>
+          {{ this.$store.getters.getCurrentScheduleObject.name}}
         </h5>
       </div>
       <div class="col ">
