@@ -8,7 +8,6 @@ export default {
 
   mutations: {
     updateData(state, {scheduleId, results}) {
-      console.log(" matches updating scheduleid " + scheduleId);
 
       const data = {};
       data[scheduleId] = results.data;
@@ -19,13 +18,11 @@ export default {
   getters: {
 
     getDataOfCurrentSchedule(state, getters, rootState, rootGetters) {
-      console.log(" current scheduleId in matches "
-          + rootGetters.getCurrentScheduleId);
       return state.data[rootGetters.getCurrentScheduleId];
     },
 
     getMatches: (state, getters) => poolNumber => {
-      if(getters.getDataOfCurrentSchedule) {
+      if (getters.getDataOfCurrentSchedule) {
         return getters.getDataOfCurrentSchedule['pool' + poolNumber];
       }
 
@@ -33,15 +30,15 @@ export default {
     getMatchesForTeam: (state, getters) => teamName => {
 
       const dataForCurrentSchedule = getters.getDataOfCurrentSchedule;
-      if(!dataForCurrentSchedule){
+      if (!dataForCurrentSchedule) {
         return [];
       }
 
       const poolNameList = Object.keys(dataForCurrentSchedule).filter(
           keyName => keyName.startsWith('pool'));
 
-
-      return poolNameList.flatMap(poolName => dataForCurrentSchedule[poolName]).filter(
+      return poolNameList.flatMap(
+          poolName => dataForCurrentSchedule[poolName]).filter(
           match => match.teams.includes(teamName));
     },
 
@@ -49,19 +46,27 @@ export default {
 
   actions: {
 
-    async loadData({commit, state }, scheduleId) {
+    async loadData({commit, state}, scheduleObject) {
 
+      const scheduleId = scheduleObject.id;
 
-      if(state.data[scheduleId] && state.data[scheduleId]['locked']){
+      //already loaded and is archived. Do not expect changes
+      if (state.data[scheduleId] && scheduleObject.status === "archived") {
         return;
       }
 
-        // const currentWeek = rootGetters.getCurrentWeek;
-
-      let url = '/api/'+scheduleId+'/matches/';
-      await axios.get(url)
+      if (scheduleObject.status === "archived") {
+        let url = 'https://destoarchived.blob.core.windows.net/matchdata/' + scheduleId + '.json';
+        await axios.get(url)
         .then((results) => commit('updateData', {scheduleId, results}))
         .catch(console.error);
+
+      } else {
+        let url = '/api/' + scheduleId + '/matches/';
+        await axios.get(url)
+        .then((results) => commit('updateData', {scheduleId, results}))
+        .catch(console.error);
+      }
     },
 
   },

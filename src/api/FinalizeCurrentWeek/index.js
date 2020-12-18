@@ -12,7 +12,7 @@ const timeSlotFieldList = {
   },
   pool3: {
     timeSlot: "t2",
-    fields: ["f3", "f4"],
+    fields: ["f1", "f2"],
   },
   pool4: {
     timeSlot: "t2",
@@ -20,7 +20,7 @@ const timeSlotFieldList = {
   },
   pool5: {
     timeSlot: "t3",
-    fields: ["f3", "f4"],
+    fields: ["f1", "f2"],
   },
   pool6: {
     timeSlot: "t3",
@@ -60,14 +60,14 @@ function createMatchForPool(poolNumber, teams) {
         + matchNumber;
     const match1 = {
       id: poolNumber + '-' + matchNumber + 'f1',
-      field: fields.f1,
+      field: fields[timeSlotFieldList['pool' + poolNumber].fields[0]],
       time: timeSlots[timeslotKey],
       teams: [teams[matchesToPlay['s' + matchNumber].f1[0]].team,
         teams[matchesToPlay['s' + matchNumber].f1[1]].team]
     }
     const match2 = {
       id: poolNumber + '-' + matchNumber + 'f2',
-      field: fields.f2,
+      field: fields[timeSlotFieldList['pool' + poolNumber].fields[1]],
       time: timeSlots[timeslotKey],
       teams: [teams[matchesToPlay['s' + matchNumber].f2[0]].team,
         teams[matchesToPlay['s' + matchNumber].f2[1]].team]

@@ -15,28 +15,31 @@ export default {
   },
 
   actions: {
-    async loadData({commit, state}, scheduleId) {
+    async loadData({commit, state}, scheduleObject) {
 
-      console.log("loading " + scheduleId);
-      if (state.data[scheduleId] && state.data[scheduleId]['locked']) {
+      const scheduleId = scheduleObject.id;
+
+      //already loaded and is archived. Do not expect changes
+      if (state.data[scheduleId] && scheduleObject.status === "archived") {
         return;
       }
+      if (scheduleObject.status === "archived") {
+        await axios.get('https://destoarchived.blob.core.windows.net/teampools/'
+            + scheduleId + '.json')
+        .then((results) => commit('updateData', {scheduleId, results}))
+        .catch(console.error);
 
-      // await new Promise(r => setTimeout(r, 2000));
-      // const currentWeek = rootGetters.getCurrentWeek;
-     await axios.get('/api/teampool/' + scheduleId)
-      .then((results) => commit('updateData', {scheduleId, results}))
-      .catch(console.error);
+      } else {
+        await axios.get('/api/teampool/' + scheduleId)
+        .then((results) => commit('updateData', {scheduleId, results}))
+        .catch(console.error);
+      }
     },
 
   },
 
   getters: {
     getDataOfCurrentSchedule(state, getters, rootState, rootGetters) {
-      console.log(" current scheduleId in teampools "
-          + rootGetters.getCurrentScheduleId);
-      // console.log(" data is " + JSON.stringify(
-      //     state.data[rootGetters.getCurrentScheduleId]));
       return state.data[rootGetters.getCurrentScheduleId];
     },
 
@@ -75,25 +78,23 @@ export default {
         return false;
       }
 
-
       const isLocked = getters.getDataOfCurrentSchedule['locked'];
 
       // this is global lock, admin also cannot change and the lock level is ignored
-      if(isLocked){
+      if (isLocked) {
         return false;
       }
 
       const lockLevel = getters.getDataOfCurrentSchedule['lockLevel'];
 
-
       // anonymous access, anybody can change
-      if(lockLevel && lockLevel==="anonymous"){
+      if (lockLevel && lockLevel === "anonymous") {
         return true;
-      }else if(lockLevel==="teamAdmin"){
+      } else if (lockLevel === "teamAdmin") {
         const isTeamAdmin = rootGetters['user/isTeamAdmin'];
-        return isTeamAdmin?true:false;
+        return isTeamAdmin ? true : false;
         // add other levels under this
-      }else{
+      } else {
         return false;
       }
     }
