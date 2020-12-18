@@ -72,7 +72,7 @@ export default new Vuex.Store({
       }
 
       // TO DO this should be moved to the load of match settings
-      if (!state.selectedSchedule) {
+      if (state.selectedSchedule === undefined) {
         state.selectedSchedule = getters.getAvailableSchedules.length - 1;
       }
 
@@ -81,10 +81,10 @@ export default new Vuex.Store({
         scheduleIdIndex = state.selectedSchedule;
       }
 
-      const scheduleId = getters.getAvailableSchedules[scheduleIdIndex].id;
+      const scheduleObject = getters.getAvailableSchedules[scheduleIdIndex];
 
-      await dispatch('teampools/loadData', scheduleId, {root: true})
-      await dispatch('matches/loadData', scheduleId, {root: true})
+      await dispatch('teampools/loadData', scheduleObject, {root: true})
+      await dispatch('matches/loadData', scheduleObject, {root: true})
       await dispatch('user/loadAuthData', null, {root: true})
 
     },
