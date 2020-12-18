@@ -19,22 +19,6 @@ export default new Vuex.Store({
       5: {divisionName: 'Eredivisie', subPoolName: 'Poule 1'},
       6: {divisionName: 'Eredivisie', subPoolName: 'Poule 2'},
     },
-    fields: {f1: '4A', f2: '4B', f3: '4C', f4: '4D'},
-
-    matchesToPlay: {
-      s1: {
-        f1: [0, 1],
-        f2: [2, 3]
-      },
-      s2: {
-        f1: [0, 2],
-        f2: [1, 3]
-      },
-      s3: {
-        f1: [0, 3],
-        f2: [1, 2]
-      },
-    },
 
   },
 
