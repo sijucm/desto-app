@@ -10,9 +10,9 @@
       <template v-slot:titlebar>
 
         <div class="container no-gutters">
-          <div class="row justify-content-between">
+          <div class="row justify-content-between align-items-center">
 
-            <div class="col-auto py-2">
+            <div class="col-auto py-2 ml-2">
                 <router-link class="justify-content-center" to="/">
                   <img  :src="iconUrl"/>
 <!--                  <span v-html="football"></span>-->
@@ -20,11 +20,11 @@
                 <h6>{{ title.short }}</h6>
             </div>
 
-            <div class="col-auto px-0 pt-3 py-2">
+            <div class="col-auto px-0 py-2">
               <ChangeCurrentSchedule></ChangeCurrentSchedule>
             </div>
 
-            <div class="col-3 px-3 py-2">
+            <div class="col-3 px-3 py-2 mr-2">
 
               <nav class="navbar navbar-expand-lg navbar-light float-right px-0 py-0">
 

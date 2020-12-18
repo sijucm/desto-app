@@ -1,7 +1,7 @@
 <template>
   <div class="container no-gutters" >
     <div class="row ">
-      <div class="col-auto px-0">
+      <div class="col-auto px-2">
         <button :class="previousScheduleAvailable?'btn-primary':'btn-secondary'"
                 @click="showPrevious()" type="button" class="btn btn-sm float-right px-1 py-0">
           &lt;
@@ -10,7 +10,7 @@
       <div class="col-auto text-center px-1">
           {{ this.$store.getters.getCurrentScheduleObject.name}}
       </div>
-      <div class="col-auto px-0 ">
+      <div class="col-auto px-2 ">
         <button :class="nextScheduleAvailable?'btn-primary':'btn-secondary'"  @click="showNext()" type="button"
                 class="btn btn-sm float-left px-1 py-0">&gt;
         </button>
