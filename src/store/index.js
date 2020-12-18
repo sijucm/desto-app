@@ -10,7 +10,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     selectedSchedule: 4,
-    availableSchedules: ['schedule1', 'schedule2', 'schedule3', 'schedule4', 'schedule5', "schedule6"],
+    availableSchedules: ['schedule1', 'schedule2', 'schedule3', 'schedule4',
+      'schedule5', "schedule6"],
     poolNames: {
       1: {divisionName: 'Premier League', subPoolName: 'Poule 1'},
       2: {divisionName: 'Premier League', subPoolName: 'Poule 2'},
@@ -31,16 +32,21 @@ export default new Vuex.Store({
       return state.availableSchedules[state.selectedSchedule];
     },
 
+    getAvailableSchedules: state => {
+      return state.availableSchedules;
+    }
+
+
   },
   mutations: {},
   actions: {
-     async loadAllData({state, dispatch}, scheduleIdIndex) {
+    async loadAllData({state, getters, dispatch}, scheduleIdIndex) {
 
-      if(scheduleIdIndex===undefined){
+      if (scheduleIdIndex === undefined) {
         scheduleIdIndex = state.selectedSchedule;
       }
 
-      const scheduleId = state.availableSchedules[scheduleIdIndex] ;
+      const scheduleId = getters.getAvailableSchedules[scheduleIdIndex];
 
       await dispatch('teampools/loadData', scheduleId, {root: true})
       await dispatch('matches/loadData', scheduleId, {root: true})
@@ -48,8 +54,8 @@ export default new Vuex.Store({
 
     },
 
-    async changeCurrentSchedule({state, dispatch}, newScheduleIndex) {
-      if (state.availableSchedules[newScheduleIndex]) {
+    async changeCurrentSchedule({state,getters, dispatch}, newScheduleIndex) {
+      if (getters.getAvailableSchedules[newScheduleIndex]) {
         await dispatch('loadAllData', newScheduleIndex, {root: true});
         state.selectedSchedule = newScheduleIndex;
       }
