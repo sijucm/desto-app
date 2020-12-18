@@ -49,10 +49,9 @@ export default {
 
   actions: {
 
-    loadData({commit, state }, scheduleId) {
+    async loadData({commit, state }, scheduleId) {
 
 
-      console.log("loading matches of scheduleId "+ scheduleId);
       if(state.data[scheduleId] && state.data[scheduleId]['locked']){
         return;
       }
@@ -60,7 +59,7 @@ export default {
         // const currentWeek = rootGetters.getCurrentWeek;
 
       let url = '/api/'+scheduleId+'/matches/';
-      axios.get(url)
+      await axios.get(url)
         .then((results) => commit('updateData', {scheduleId, results}))
         .catch(console.error);
     },

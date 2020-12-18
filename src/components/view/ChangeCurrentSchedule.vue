@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import {mapActions} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "ChangeCurrentSchedule",
@@ -32,7 +32,7 @@ export default {
   computed: {
     previousScheduleAvailable() {
       const selectedSchedule = this.$store.state.selectedSchedule;
-      if (this.$store.state.availableSchedules[selectedSchedule - 1]) {
+      if (this.getAvailableSchedulesSettings[selectedSchedule - 1]) {
         return true
       } else {
         return false;
@@ -40,12 +40,13 @@ export default {
     },
     nextScheduleAvailable() {
       const selectedSchedule = this.$store.state.selectedSchedule;
-      if (this.$store.state.availableSchedules[selectedSchedule + 1]) {
+      if (this.getAvailableSchedulesSettings[selectedSchedule + 1]) {
         return true
       } else {
         return false;
       }
-    }
+    },
+    ...mapGetters("matchSettings", ["getAvailableSchedulesSettings"]),
   },
   methods: {
     showPrevious() {

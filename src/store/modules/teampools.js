@@ -24,7 +24,7 @@ export default {
 
       // await new Promise(r => setTimeout(r, 2000));
       // const currentWeek = rootGetters.getCurrentWeek;
-      axios.get('/api/teampool/' + scheduleId)
+     await axios.get('/api/teampool/' + scheduleId)
       .then((results) => commit('updateData', {scheduleId, results}))
       .catch(console.error);
     },
@@ -46,7 +46,6 @@ export default {
           && getters.getDataOfCurrentSchedule.pools) {
         return getters.getDataOfCurrentSchedule.pools['pool' + poolNumber];
       } else {
-        console.log("returning empty ");
         return {};
       }
     },

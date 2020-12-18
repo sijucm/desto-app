@@ -49,7 +49,7 @@ export default {
   },
 
   actions: {
-    loadAuthData({commit}) {
+    async loadAuthData({commit}) {
 
       //TODO : IMPORTANT, look at this hack for now. This WILL cause problems if not changed later
       if (process.env.NODE_ENV === 'development') {
@@ -75,7 +75,7 @@ export default {
         commit('updateData', sampleData)
 
       } else {
-        axios.get('/.auth/me')
+        await axios.get('/.auth/me')
         .then((results) => commit('updateData', results.data))
         .catch(console.error);
       }
