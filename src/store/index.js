@@ -89,7 +89,7 @@ export default new Vuex.Store({
 
     },
 
-    async changeCurrentSchedule({state, getters, dispatch, commit}, newScheduleIndex) {
+    async changeCurrentSchedule({ getters, dispatch, commit}, newScheduleIndex) {
       if (getters.getAvailableSchedules[newScheduleIndex]) {
         await dispatch('loadAllData', newScheduleIndex, {root: true});
         commit("updateSelectedSchedule", newScheduleIndex);
