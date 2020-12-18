@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="centered">
 
 
     <div class="card mx-2 ">
@@ -88,5 +88,12 @@ export default {
 </script>
 
 <style scoped>
+
+.centered {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 </style>

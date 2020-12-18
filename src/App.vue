@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="centered">
 
 
     <Main
@@ -26,7 +26,7 @@
 
             <div class="col-3 px-3 py-2 mr-2">
 
-              <nav class="navbar navbar-expand-lg navbar-light float-right px-0 py-0">
+              <nav class="navbar navbar-light float-right px-0 py-0">
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
@@ -105,5 +105,12 @@ export default {
 <style scoped>
 a {
   color: inherit;
+}
+
+.centered {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
