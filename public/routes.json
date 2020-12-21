@@ -8,8 +8,8 @@
       "route": "/modify/*"
     },
     {
-      "route": "/login",
-      "serve": "/.auth/login/aad"
+      "route": "/loginGoogle",
+      "serve": "/.auth/login/google"
     },
 
     {

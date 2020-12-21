@@ -1,6 +1,6 @@
 <template>
   <span>
-    <a v-if="!this.isLoggedIn()" class="nav-link" href="/login">Login</a>
+    <a v-if="!this.isLoggedIn()" class="nav-link" href="/loginGoogle">Login</a>
     <a v-if="this.isLoggedIn()" class="nav-link" href="/logout">Logout</a>
   </span>
 </template>
