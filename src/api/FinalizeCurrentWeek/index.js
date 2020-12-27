@@ -183,9 +183,11 @@ module.exports = async function (context, req, currentTeamPools) {
 
   context.bindings.newMatchData = newMatchData;
   newTeamPools['locked'] = false;
+  newTeamPools['lockLevel'] = "teamAdmin";
   context.bindings.newTeamPools = newTeamPools;
   const currentTeamPoolsUpdated = currentTeamPools;
   currentTeamPoolsUpdated['locked'] = true;
+  currentTeamPoolsUpdated['lockLevel'] = "teamAdmin";
   context.bindings.currentTeamPoolsUpdated = currentTeamPoolsUpdated;
 
   context.res = {
