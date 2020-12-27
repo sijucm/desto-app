@@ -6,13 +6,18 @@
 
         <div class="row">
 
-          <div class="col-4 pr-2 align-self-center">{{ team.team }}
+          <div class="col-4 pr-2 align-self-center">
             <router-link class=" mt-2"
                          :to="{name: 'TeamView', params:{'teamName':team.team, 'showMatches': false}}">
-              <span v-html="this.cardText"></span>
+              <div style="display: inline-block">
+                {{ team.team }}
+              </div>
+              <div class="waggle ml-1">
+                <span v-html="this.assignment"></span>
+              </div>
             </router-link>
-
           </div>
+
           <div class="col m-0">
             <team-stand :team="team"></team-stand>
           </div>
@@ -27,7 +32,7 @@
 </template>
 
 <script>
-import {cardText} from "@/assets/icons"
+import {assignment} from "@/assets/icons"
 import TeamStand from "@/components/view/TeamStand";
 
 export default {
@@ -35,7 +40,7 @@ export default {
   components: {TeamStand},
   data() {
     return {
-      cardText
+      assignment
     }
   },
   props: {
@@ -67,5 +72,38 @@ export default {
 .container {
   padding-left: 1;
 }
+
+.waggle {
+  display: inline-block;
+  animation: waggle 1s linear 2s 2 alternate-reverse;
+}
+
+@keyframes waggle {
+  0% {
+    transform: none;
+  }
+  50% {
+    transform: rotateZ(-20deg) scale(1);
+  }
+  60% {
+    transform: rotateZ(25deg) scale(1.2);
+  }
+  67.5% {
+    transform: rotateZ(-15deg) scale(1.2);
+  }
+  75% {
+    transform: rotateZ(15deg) scale(1.2);
+  }
+  82.5% {
+    transform: rotateZ(-12deg) scale(1.2);
+  }
+  85% {
+    transform: rotateZ(0) scale(1.2);
+  }
+  100% {
+    transform: rotateZ(0) scale(1);
+  }
+}
+
 
 </style>
