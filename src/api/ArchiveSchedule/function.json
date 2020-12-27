@@ -1,0 +1,54 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "post"
+      ],
+      "route": "{scheduleId}/archive"
+    },
+    {
+      "name": "teamPools",
+      "type": "cosmosDB",
+      "direction": "in",
+      "databaseName": "desto",
+      "collectionName": "teampool",
+      "id": "{scheduleId}",
+      "partitionKey": "{scheduleId}",
+      "connectionStringSetting": "CosmosDBConnection"
+    },
+    {
+      "name": "matchData",
+      "type": "cosmosDB",
+      "direction": "in",
+      "databaseName": "desto",
+      "createIfNotExists": false,
+      "collectionName": "matchdata",
+      "id": "{scheduleId}",
+      "partitionKey": "{scheduleId}",
+      "connectionStringSetting": "CosmosDBConnection"
+    },
+    {
+      "name": "matchDataBlob",
+      "type": "blob",
+      "path": "matchdata/{scheduleId}.json",
+      "connection": "StorageAccountConnection",
+      "direction": "out"
+    },
+    {
+      "name": "teamPoolsBlob",
+      "type": "blob",
+      "path": "teampools/{scheduleId}.json",
+      "connection": "StorageAccountConnection",
+      "direction": "out"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    }
+  ]
+}
