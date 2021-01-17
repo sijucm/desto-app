@@ -75,34 +75,66 @@ export default {
 
 .waggle {
   display: inline-block;
-  animation: waggle 1s linear 2s 2 alternate-reverse;
+  animation: waggle 1s linear 3s 5 forwards;
 }
 
 @keyframes waggle {
   0% {
     transform: none;
   }
+  49.5%{
+    transform: none;
+  }
   50% {
     transform: rotateZ(-20deg) scale(1);
+    /*background: green;*/
   }
-  60% {
-    transform: rotateZ(25deg) scale(1.2);
+  50.5% {
+    transform: rotateZ(-10deg) scale(1.2);
+    /*background: red;*/
   }
-  67.5% {
-    transform: rotateZ(-15deg) scale(1.2);
-  }
-  75% {
-    transform: rotateZ(15deg) scale(1.2);
-  }
-  82.5% {
-    transform: rotateZ(-12deg) scale(1.2);
-  }
-  85% {
+  51% {
     transform: rotateZ(0) scale(1.2);
+    background: none;
   }
-  100% {
+  51.5% {
+    transform: rotateZ(10deg) scale(1.2);
+  }
+  52% {
+    transform: rotateZ(20deg) scale(1.2);
+  }
+  52.5% {
     transform: rotateZ(0) scale(1);
   }
+  53%, 100% {
+    transform:none;
+  }
+
+  /*0% {*/
+  /*  transform: none;*/
+  /*}*/
+  /*50% {*/
+  /*  transform: rotateZ(-20deg) scale(1);*/
+  /*}*/
+  /*60% {*/
+  /*  transform: rotateZ(25deg) scale(1.2);*/
+  /*}*/
+  /*67.5% {*/
+  /*  transform: rotateZ(-15deg) scale(1.2);*/
+  /*}*/
+  /*75% {*/
+  /*  transform: rotateZ(15deg) scale(1.2);*/
+  /*}*/
+  /*82.5% {*/
+  /*  transform: rotateZ(-12deg) scale(1.2);*/
+  /*}*/
+  /*85% {*/
+  /*  transform: rotateZ(0) scale(1.2);*/
+  /*}*/
+  /*100% {*/
+  /*  transform: rotateZ(0) scale(1);*/
+  /*} */
+
 }
 
 
