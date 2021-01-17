@@ -6,7 +6,9 @@ function removeTeamFromPool(newTeamPools, poolName, toBeRemovedTeamName) {
 
 }
 
-function createNewTeamPool(newTeamPools, scheduleName) {
+function createNewTeamPool(sourceTeamPools, scheduleName) {
+
+  const newTeamPools = JSON.parse(JSON.stringify(sourceTeamPools));
 
   newTeamPools.id = scheduleName;
 

@@ -19,22 +19,16 @@ module.exports = async function (context, req, currentTeamPools) {
     currentScheduleIdNumber = parseInt(currentScheduleIdNumberString);
   }
 
-  const name = (req.query.name || (req.body && req.body.name));
-  const responseMessage = name
-      ? "Hello, " + name
-      + ". This HTTP triggered function executed successfully."
-      : "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.";
-
 
   const nextScheduleName = "schedule"+(currentScheduleIdNumber + 1);
 
-  const newTeamPools = createNewTeamPool(
-      JSON.parse(JSON.stringify(currentTeamPools)), nextScheduleName);
+  const newTeamPools = createNewTeamPool(currentTeamPools
+      , nextScheduleName);
   const newMatchData = createAllMatches(newTeamPools, nextScheduleName);
 
   context.bindings.newMatchData = newMatchData;
   newTeamPools['locked'] = false;
-  newTeamPools['lockLevel'] = "teamAdmin";
+  newTeamPools['lockLevel'] = "anonymous";
   context.bindings.newTeamPools = newTeamPools;
   const currentTeamPoolsUpdated = currentTeamPools;
   currentTeamPoolsUpdated['locked'] = true;
@@ -43,6 +37,6 @@ module.exports = async function (context, req, currentTeamPools) {
 
   context.res = {
     // status: 200, /* Defaults to 200 */
-    body: responseMessage
+    body: "New schedule created: "+ nextScheduleName
   };
 }

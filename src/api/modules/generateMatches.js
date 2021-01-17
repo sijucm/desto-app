@@ -37,7 +37,7 @@ const matchesToPlay = {
 function createMatch(poolName, timeSlotId, fieldId, teamList, teamIndexList) {
   const poolId = getPoolIdFromPoolName(poolName);
 
-  const match = {
+  return {
 
     id: poolId + '-' + timeSlotId + "-" + fieldId,
     field: fields[fieldId],
@@ -46,9 +46,7 @@ function createMatch(poolName, timeSlotId, fieldId, teamList, teamIndexList) {
       teamList[teamIndexList[0]].team,
       teamList[teamIndexList[1]].team
     ]
-  }
-
-  return match;
+  };
 
 }
 
