@@ -13,7 +13,7 @@
       <li class="list-group-item match-card px-0" v-for="match in this.matches"
           :key="match.id">
         <match-view-main :results="match.results?match.results:{}"
-                         :teams="match.teams"></match-view-main>
+                         :teams="match.teams" :match="match"></match-view-main>
       </li>
     </ul>
 
