@@ -1,80 +1,74 @@
-const numberOfPools = 6;
 let currentScheduleIdNumber;
-
-const timeSlotFieldList = {
-  pool1: {
-    timeSlot: "t1",
-    fields: ["f1", "f2"],
-  },
-  pool2: {
-    timeSlot: "t1",
-    fields: ["f3", "f4"],
-  },
-  pool3: {
-    timeSlot: "t2",
-    fields: ["f1", "f2"],
-  },
-  pool4: {
-    timeSlot: "t2",
-    fields: ["f3", "f4"],
-  },
-  pool5: {
-    timeSlot: "t3",
-    fields: ["f1", "f2"],
-  },
-  pool6: {
-    timeSlot: "t3",
-    fields: ["f3", "f4"],
-  },
-};
 
 const fields = {f1: '4A', f2: '4B', f3: '4C', f4: '4D'};
 
 const timeSlots =
     {
-      t1s1: '12:15', t1s2: '12:35', t1s3: '12:55',
-      t2s1: '11:00', t2s2: '11:20', t2s3: '11:40',
-      t3s1: '09:45', t3s2: '10:05', t3s3: '10:25'
+      ts1: '11:00', ts2: '11:20', ts3: '11:40',
+      ts4: '09:45', ts5: '09:57', ts6: '10:09', ts7: '10:21', ts8: '10:33',
     };
 
 const matchesToPlay = {
-  s1: {
-    f1: [0, 2],
-    f2: [1, 3]
+  pool1: {
+    ts1: {f1: [0, 2], f2: [1, 3]},
+    ts2: {f1: [1, 2], f2: [0, 3]},
+    ts3: {f1: [0, 1], f2: [2, 3]},
   },
-  s2: {
-    f1: [1, 2],
-    f2: [0, 3]
+  pool2: {
+    ts1: {f3: [0, 2], f4: [1, 3]},
+    ts2: {f3: [1, 2], f4: [0, 3]},
+    ts3: {f3: [0, 1], f4: [2, 3]},
   },
-  s3: {
-    f1: [0, 1],
-    f2: [2, 3]
+  pool3: {
+    ts4: {f1: [0, 1], f2: [2, 3]},
+    ts5: {f1: [0, 4], f2: [2, 1]},
+    ts6: {f1: [0, 3], f2: [1, 4]},
+    ts7: {f1: [0, 2], f2: [3, 4]},
+    ts8: {f1: [1, 3], f2: [2, 4]},
   },
-};
+  pool4: {
+    ts4: {f3: [0, 1], f4: [2, 3]},
+    ts5: {f3: [0, 4], f4: [2, 1]},
+    ts6: {f3: [0, 3], f4: [1, 4]},
+    ts7: {f3: [0, 2], f4: [3, 4]},
+    ts8: {f3: [1, 3], f4: [2, 4]},
+  },
+}
 
-function createMatchForPool(poolNumber, teams) {
+function createMatch(poolName, timeSlotId, fieldId, teamList, teamIndexList) {
+  const poolId = getPoolIdFromPoolName(poolName);
+
+  const match = {
+
+    id: poolId + '-' + timeSlotId + "-" + fieldId,
+    field: fields[fieldId],
+    time: timeSlots[timeSlotId],
+    teams: [
+      teamList[teamIndexList[0]].team,
+      teamList[teamIndexList[1]].team
+    ]
+  }
+
+  return match;
+
+}
+
+function createMatchForPool(poolName, teams) {
   const matchList = [];
-  for (let matchNumber = 1; matchNumber <= 3; matchNumber++) {
-    const timeslotKey = timeSlotFieldList['pool' + poolNumber].timeSlot
-        + 's'
-        + matchNumber;
-    const match1 = {
-      id: poolNumber + '-' + matchNumber + 'f1',
-      field: fields[timeSlotFieldList['pool' + poolNumber].fields[0]],
-      time: timeSlots[timeslotKey],
-      teams: [teams[matchesToPlay['s' + matchNumber].f1[0]].team,
-        teams[matchesToPlay['s' + matchNumber].f1[1]].team]
-    }
-    const match2 = {
-      id: poolNumber + '-' + matchNumber + 'f2',
-      field: fields[timeSlotFieldList['pool' + poolNumber].fields[1]],
-      time: timeSlots[timeslotKey],
-      teams: [teams[matchesToPlay['s' + matchNumber].f2[0]].team,
-        teams[matchesToPlay['s' + matchNumber].f2[1]].team]
-    }
 
-    matchList.push(match1);
-    matchList.push(match2);
+  const matchToPlayInPool = matchesToPlay[poolName];
+
+  for (let timeSlot of Object.keys(matchToPlayInPool)) {
+
+    const matchesInTimeSlotConfig = matchToPlayInPool[timeSlot];
+
+    const fieldsInTimeSlot = Object.keys(matchesInTimeSlotConfig);
+
+    const matchesInTimeSlot = fieldsInTimeSlot.map(
+        fieldId => createMatch(poolName, timeSlot, fieldId, teams,
+            matchesInTimeSlotConfig[fieldId]));
+
+    matchList.push(...matchesInTimeSlot);
 
   }
   return matchList;
@@ -83,11 +77,11 @@ function createMatchForPool(poolNumber, teams) {
 function createAllMatches(teamPools) {
   const newMatchData = {"id": "schedule" + (currentScheduleIdNumber + 1)};
 
-  for (let i = 1; i <= numberOfPools; i++) {
-    const poolName = 'pool' + i;
-    const poolId = i;
+  const listOfPools = Object.keys(teamPools.pools);
 
-    const matchList = createMatchForPool(poolId, teamPools.pools[poolName]);
+  for (const poolName of listOfPools) {
+
+    const matchList = createMatchForPool(poolName, teamPools.pools[poolName]);
     newMatchData[poolName] = matchList;
 
   }
@@ -115,15 +109,16 @@ function createNewTeamPool(newTeamPools) {
     "points": 0
   };
 
-  // IMPORTANT: please note that this starts with 1 and not 0
-  for (let i = 1; i <= numberOfPools; i++) {
-    const poolName = 'pool' + i;
+  const listOfPools = Object.keys(newTeamPools.pools);
+
+  for (const poolName of listOfPools) {
     const currentPool = newTeamPools.pools[poolName];
 
     const teamWithHighestRank = currentPool.find(
         team => team.rank === 1);
-    const teamWithLowestRank = currentPool.find(
-        team => team.rank === 4);
+
+    const teamWithLowestRank = currentPool.reduce(
+        (prev, current) => (prev.rank > current.rank) ? prev : current);
 
     if (!(teamWithHighestRank && teamWithLowestRank)) {
       // this should not happen. Just do not handle it for now
@@ -137,20 +132,39 @@ function createNewTeamPool(newTeamPools) {
     delete teamWithLowestRank.rank;
     delete teamWithHighestRank.rank;
 
+    const previousPool = findPreviousPool(newTeamPools, poolName);
     // not the first then promote
-    if (i > 1) {
-      newTeamPools.pools['pool' + (i - 1)].push(teamWithHighestRank);
+    if (previousPool) {
+      previousPool.push(teamWithHighestRank);
       removeTeamFromPool(newTeamPools, poolName, teamWithHighestRank.team);
 
     }
 
-    if (i < numberOfPools) {
-      newTeamPools.pools['pool' + (i + 1)].unshift(teamWithLowestRank);
+    const nextPool = findNextPool(newTeamPools, poolName);
+
+    if (nextPool) {
+      nextPool.unshift(teamWithLowestRank);
       removeTeamFromPool(newTeamPools, poolName, teamWithLowestRank.team);
     }
 
   }
   return newTeamPools;
+}
+
+function getPoolIdFromPoolName(poolName) {
+  return parseInt(poolName.replace(/pool/, ""));
+}
+
+function findNextPool(teamPools, poolName) {
+  const poolId = getPoolIdFromPoolName(poolName);
+  const nextPoolName = 'pool' + (poolId + 1);
+  return teamPools.pools[nextPoolName];
+}
+
+function findPreviousPool(teamPools, poolName) {
+  const poolId = getPoolIdFromPoolName(poolName);
+  const previousPoolName = 'pool' + (poolId - 1);
+  return teamPools.pools[previousPoolName];
 }
 
 module.exports = async function (context, req, currentTeamPools) {
@@ -176,10 +190,9 @@ module.exports = async function (context, req, currentTeamPools) {
       + ". This HTTP triggered function executed successfully."
       : "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.";
 
-  const newTeamPools = createNewTeamPool(JSON.parse(JSON.stringify(currentTeamPools)));
+  const newTeamPools = createNewTeamPool(
+      JSON.parse(JSON.stringify(currentTeamPools)));
   const newMatchData = createAllMatches(newTeamPools);
-
-
 
   context.bindings.newMatchData = newMatchData;
   newTeamPools['locked'] = false;
