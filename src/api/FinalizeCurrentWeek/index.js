@@ -1,4 +1,3 @@
-let currentScheduleIdNumber;
 
 const fields = {f1: '4A', f2: '4B', f3: '4C', f4: '4D'};
 
@@ -74,8 +73,8 @@ function createMatchForPool(poolName, teams) {
   return matchList;
 }
 
-function createAllMatches(teamPools) {
-  const newMatchData = {"id": "schedule" + (currentScheduleIdNumber + 1)};
+function createAllMatches(teamPools, scheduleName) {
+  const newMatchData = {"id": scheduleName};
 
   const listOfPools = Object.keys(teamPools.pools);
 
@@ -96,9 +95,9 @@ function removeTeamFromPool(newTeamPools, poolName, toBeRemovedTeamName) {
 
 }
 
-function createNewTeamPool(newTeamPools) {
+function createNewTeamPool(newTeamPools, scheduleName) {
 
-  newTeamPools.id = "schedule" + (currentScheduleIdNumber + 1);
+  newTeamPools.id = scheduleName;
 
   const standingDefault = {
     "mp": 0,
@@ -174,6 +173,7 @@ module.exports = async function (context, req, currentTeamPools) {
   const regex = /schedule/;
 
   const currentScheduleIdNumberString = scheduleId.replace(regex, '');
+  let currentScheduleIdNumber = -1;
   if (isNaN(currentScheduleIdNumberString)) {
     // that is not expected
     console.error(
@@ -190,9 +190,12 @@ module.exports = async function (context, req, currentTeamPools) {
       + ". This HTTP triggered function executed successfully."
       : "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.";
 
+
+  const nextScheduleName = "schedule"+(currentScheduleIdNumber + 1);
+
   const newTeamPools = createNewTeamPool(
-      JSON.parse(JSON.stringify(currentTeamPools)));
-  const newMatchData = createAllMatches(newTeamPools);
+      JSON.parse(JSON.stringify(currentTeamPools)), nextScheduleName);
+  const newMatchData = createAllMatches(newTeamPools, nextScheduleName);
 
   context.bindings.newMatchData = newMatchData;
   newTeamPools['locked'] = false;
