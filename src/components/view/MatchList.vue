@@ -77,17 +77,22 @@ export default {
       document.execCommand("copy");
 
     },
+    renameTeamName(teamName) {
+      let teamRep = teamName.replace(/([JM])/, '$1o');
+      teamRep = teamRep.replace(/o0/, 'o');
+      return teamRep;
+    }
   },
   computed: {
     getMatchExportedText() {
       // const formatMatchResult = (result) => { return {a} }
       let formattedTet = this.matches.map(match => {
-        return match.teams[0]
+        return this.renameTeamName(match.teams[0])
             + ' vs '
-            + match.teams[1]
+            + this.renameTeamName(match.teams[1])
             + '   '
             + (match.results ? match.results[match.teams[0]] : match.time)
-            + (match.results ?' - ':' ')
+            + (match.results ? ' - ' : ' ')
             + (match.results ? match.results[match.teams[1]] : match.field)
       });
 
