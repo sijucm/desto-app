@@ -1,5 +1,6 @@
 const  createAllMatches = require('../modules/generateMatches')
 const  createNewTeamPool = require('../modules/generateTeamPool')
+const  createNewTeamPoolFresh = require('../modules/generateTeamPoolsFresh')
 
 module.exports = async function (context, req, currentTeamPools) {
   context.log('JavaScript HTTP trigger function processed a request.');
@@ -22,8 +23,15 @@ module.exports = async function (context, req, currentTeamPools) {
 
   const nextScheduleName = "schedule"+(currentScheduleIdNumber + 1);
 
-  const newTeamPools = createNewTeamPool(currentTeamPools
-      , nextScheduleName);
+  const createFresh = true;
+  let newTeamPools ;
+  if(! createFresh ) {
+     newTeamPools = createNewTeamPool(currentTeamPools
+        , nextScheduleName);
+  }else {
+    newTeamPools = createNewTeamPoolFresh(nextScheduleName);
+  }
+
   const newMatchData = createAllMatches(newTeamPools, nextScheduleName);
 
   context.bindings.newMatchData = newMatchData;
