@@ -78,12 +78,6 @@ function createMatchForPool(poolName, teams) {
   return matchList;
 }
 
-// function addNewPoolNotInLastRound(newMatchData) {
-//   const poolName = 'pool5';
-//   const teams = ['M11-2', 'Friends/Family'];
-//   const matchList = createMatchForPool(poolName, teams);
-//   newMatchData[poolName] = matchList;
-// }
 
 function createAllMatches(teamPools) {
 
@@ -99,8 +93,6 @@ function createAllMatches(teamPools) {
 
 
   }
-
-  //addNewPoolNotInLastRound(newMatchData);
 
 
   return newMatchData;

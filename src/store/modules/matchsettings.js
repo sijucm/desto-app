@@ -28,7 +28,17 @@ export default {
       if(state.data.availableSchedules) {
         return state.data.availableSchedules;
       }else{return []}
+    },
+    getDefaultSelectedScheduleIndex: state => {
+      if(state.data.selectedScheduleIndex){
+        return state.data.selectedScheduleIndex;
+      }else{
+        return 0;
+      }
     }
+
   }
+
+
 
 };

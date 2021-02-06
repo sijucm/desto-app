@@ -45,14 +45,20 @@ export default new Vuex.Store({
       if (getters.getCurrentScheduleObject.id) {
        return getters.getCurrentScheduleObject.id;
       } else {
-        return "schedule6";
+        return "schedule1";
       }
 
     },
 
     getAvailableSchedules: (state, rootGetters) => {
       return rootGetters["matchSettings/getAvailableSchedulesSettings"];
+    },
+
+    getDefaultSelectedScheduleIndex : (state, rootGetters) => {
+      return rootGetters["matchSettings/getDefaultSelectedScheduleIndex"];
     }
+
+    
 
   },
   mutations: {
@@ -73,7 +79,8 @@ export default new Vuex.Store({
 
       // TO DO this should be moved to the load of match settings
       if (state.selectedSchedule === undefined) {
-        state.selectedSchedule = getters.getAvailableSchedules.length - 1;
+        // state.selectedSchedule = getters.getAvailableSchedules.length - 1;
+        state.selectedSchedule = getters.getDefaultSelectedScheduleIndex;
       }
 
       //TO DO this has a strong relation to the above. Move them together
