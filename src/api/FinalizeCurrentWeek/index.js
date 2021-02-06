@@ -1,12 +1,23 @@
 let currentScheduleIdNumber;
 
-const fields = { f1: '4A', f2: '4B', f3: '4C', f4: '4D', f5: 'tbd' };
+function addNewPoolInTeamPool(newTeamPools){
+  // const poolName = 'pool5';
+  // const teams = ['M10-2', 'Friends/Family'];
+
+  // const teamDataList = teams.map(teamName => { return {team: teamName} } );
+  // resetTheStandings(teamDataList);
+  // newTeamPools.pools[poolName] = teamDataList;
+
+}
+
+
+const fields = { f1: '4A', f2: '4B', f3: '4C', f4: '4D', f5: 'field?' };
 
 const timeSlots =
 {
   ts1: '11:00', ts2: '11:20', ts3: '11:40',
   ts4: '09:45', ts5: '09:57', ts6: '10:09', ts7: '10:21', ts8: '10:33',
-  ts9: 'tbd'
+  ts9: 'time?'
 };
 
 const matchesToPlay = {
@@ -171,16 +182,7 @@ function createNewTeamPool(newTeamPools) {
   return newTeamPools;
 }
 
-function addNewPoolInTeamPool(newTeamPools){
-  const poolName = 'pool5';
-  const teams = ['M11-2', 'Friends/Family'];
 
-  const teamDataList = teams.map(teamName => { return {team: teamName} } );
-  resetTheStandings(teamDataList);
-  newTeamPools.pools[poolName] = teamDataList;
-
-
-}
 
 function getPoolIdFromPoolName(poolName) {
   return parseInt(poolName.replace(/pool/, ""));
