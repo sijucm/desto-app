@@ -90,7 +90,7 @@ export default {
       // anonymous access, anybody can change
       if (lockLevel && lockLevel === "anonymous") {
         return true;
-      } else if (lockLevel === "teamAdmin") {
+      } else if (lockLevel === "teamadmin") {
         const isTeamAdmin = rootGetters['user/isTeamAdmin'];
         return isTeamAdmin ? true : false;
         // add other levels under this
