@@ -41,6 +41,14 @@ const fields = {f1: '4A', f2: '4B', f3: '4C', f4: '4D'};
 
 const timeSlots =
     {
+      ts1: '08:25', ts2: '08:50', ts3: '09:15',
+      ts4: '09:40', ts5: '10:05', ts6: '10:30',
+      ts7: '10:55',ts8: '11:20', ts9: '11:45',
+    };
+
+
+const timeSlots_regular =
+    {
       ts1: '09:40', ts2: '09:56', ts3: '10:12',
       ts4: '10:28', ts5: '10:44', ts6: '11:00',
       ts7: '11:16',ts8: '11:32', ts9: '11:48',
@@ -74,6 +82,14 @@ const matchesToPlay = {
     ts3: {f1: [0, 1], f2: [2, 3]},
   },
 }
+
+/*
+pool4: {
+    ts1: {f3: [0, 2], f4: [1, 3]},
+    ts2: {f3: [1, 2], f4: [0, 3]},
+    ts3: {f3: [0, 1], f4: [2, 3]},
+  },
+ */
 
 function createMatch(poolName, timeSlotId, fieldId, teamList, teamIndexList) {
   const poolId = getPoolIdFromPoolName(poolName);
