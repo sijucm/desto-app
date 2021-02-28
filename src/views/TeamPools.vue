@@ -2,6 +2,7 @@
 
 
 <div>
+    <display-top-message class="d-flex justify-content-center"></display-top-message>
     <pool-list/>
 </div>
 
@@ -13,9 +14,10 @@
 
 import {mapActions} from "vuex";
 import PoolList from "@/components/view/PoolList";
+import DisplayTopMessage from "@/components/view/DisplayTopMessage";
 
 export default {
-  components: { PoolList},
+  components: {DisplayTopMessage, PoolList},
   name: 'TeamPools',
    created() {
     // this.$store.dispatch("teampools/loadData")

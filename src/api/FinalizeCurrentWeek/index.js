@@ -22,7 +22,7 @@ module.exports = async function (context, req, currentTeamPools) {
 
 
   // const nextScheduleName = "schedule"+(currentScheduleIdNumber + 1);
-   const nextScheduleName = "schedule13";
+   const nextScheduleName = "schedule14";
 
   const createFresh = true;
   let newTeamPools ;
@@ -41,7 +41,7 @@ module.exports = async function (context, req, currentTeamPools) {
   context.bindings.newTeamPools = newTeamPools;
   const currentTeamPoolsUpdated = currentTeamPools;
   // currentTeamPoolsUpdated['locked'] = true;
-  // currentTeamPoolsUpdated['lockLevel'] = "teamadmin";
+  currentTeamPoolsUpdated['lockLevel'] = "teamadmin";
   context.bindings.currentTeamPoolsUpdated = currentTeamPoolsUpdated;
 
   context.res = {
