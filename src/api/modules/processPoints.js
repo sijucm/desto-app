@@ -1,4 +1,4 @@
-const updatePointsForAPool =  ( poolName, matchData,
+const updatePointsForAPool = (poolName, matchData,
     teamPools) => {
 
   const poolData = teamPools.pools[poolName];
@@ -7,20 +7,19 @@ const updatePointsForAPool =  ( poolName, matchData,
   const matchesWithResults = matchDataForPool.filter(
       match => match.results).map(match => match.results);
 
-
   const standingDefault = {
-    "mp": 0,
-    "w": 0,
-    "d": 0,
-    "gf": 0,
-    "ga": 0,
-    "points": 0
+    'mp': 0,
+    'w': 0,
+    'd': 0,
+    'gf': 0,
+    'ga': 0,
+    'points': 0
   };
 
   // resetting the current standings and points
   poolData.forEach(team => {
-    team["standings"] = {...standingDefault};
-    team.rank = 0
+    team['standings'] = {...standingDefault};
+    team.rank = 0;
   });
 
   //processing each match with results
@@ -29,10 +28,10 @@ const updatePointsForAPool =  ( poolName, matchData,
     console.log('processing match ' + JSON.stringify(match));
 
     const teamList = Object.keys(match).map(teamName => {
-      return {'team': teamName, 'goals': match[teamName]}
+      return {'team': teamName, 'goals': match[teamName]};
     });
 
-    console.log(" Team result in the match: " + JSON.stringify(teamList));
+    console.log(' Team result in the match: ' + JSON.stringify(teamList));
 
     const team0 = poolData.filter(
         team => team.team === teamList[0].team)[0];
@@ -44,20 +43,19 @@ const updatePointsForAPool =  ( poolName, matchData,
     // TODO But this check should happen while accessing the array above
     if (!(team0 && team1)) {
       console.log(
-          "Teams cannot be identified during processing of points. team0:"
-          + team0 + " team1:" + team1)
+          'Teams cannot be identified during processing of points. team0:'
+          + team0 + ' team1:' + team1);
       return;
 
     }
 
     // if the goals are empty then this can be ignored as a result. Could happen
-    if (!(teamList[0]['goals'] !=null && teamList[1]['goals']!=null)) {
+    if (!(teamList[0]['goals'] != null && teamList[1]['goals'] != null)) {
       console.log(
-          "goals are not present for the teams while processing points. team0: "
-          + teamList[0]['goals'] + "team1: " + teamList[1]['goals'])
+          'goals are not present for the teams while processing points. team0: '
+          + teamList[0]['goals'] + 'team1: ' + teamList[1]['goals']);
       return;
     }
-
 
     const poolTeam0Standings = team0.standings;
     const poolTeam1Standings = team1.standings;
@@ -91,9 +89,11 @@ const updatePointsForAPool =  ( poolName, matchData,
   let rank = 1;
   poolData.sort(
       (a, b) => {
-        const v = b.standings.points - a.standings.points
+        const v = 
+            b.standings.points - a.standings.points
             || (b.standings.gf - b.standings.ga) - (a.standings.gf
                 - a.standings.ga)
+             || matchesAgainst(a.team, b.team, matchesWithResults)
             || b.standings.gf - a.standings.gf;
         return v;
       }
@@ -107,6 +107,34 @@ const updatePointsForAPool =  ( poolName, matchData,
 
   return teamPools;
   // context.bindings.teamPoolsUpdate = teamPools;
+
+};
+
+function matchesAgainst(teama, teamb, matchesWithResults) {
+  /*
+     "results": {
+                "J09-2": 0,
+                "J09-1": 4
+            }
+   */
+  const matchBetweenList = matchesWithResults.filter(
+      // eslint-disable-next-line no-prototype-builtins
+      matchResult => matchResult.hasOwnProperty(teama)
+          // eslint-disable-next-line no-prototype-builtins
+          && matchResult.hasOwnProperty(teamb));
+
+  if(matchBetweenList.length != 1) {
+    return 0;
+  }
+  const matchBetween = matchBetweenList[0];
+
+  if(matchBetween[teama] === matchBetween[teamb]){
+    return 0;
+  }else if (matchBetween[teama] > matchBetween[teamb]){
+    return -1;
+  }else{
+    return 1;
+  }
 
 }
 

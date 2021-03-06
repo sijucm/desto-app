@@ -6,6 +6,8 @@ module.exports = async function (context, req, matchData, teamPools) {
   Object.keys(teamPools.pools).forEach(
       poolName => processPoints(poolName, matchData, teamPools))
 
+  console.log(JSON.stringify(teamPools));
+
   context.bindings.teamPoolsUpdate = teamPools;
 
   context.res = {
