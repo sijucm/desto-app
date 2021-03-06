@@ -1,5 +1,6 @@
 
-function addNewPoolInTeamPool(newTeamPools) {
+// eslint-disable-next-line no-unused-vars
+function DONOTUSEaddNewPoolInTeamPool(newTeamPools) {
   const poolName = 'pool5';
   const teams = ['M9-2', 'Friends/Family'];
 
@@ -12,7 +13,7 @@ function addNewPoolInTeamPool(newTeamPools) {
 
 function removeTeamFromPool(newTeamPools, poolName, toBeRemovedTeamName) {
   newTeamPools.pools[poolName] = newTeamPools.pools[poolName].filter(
-    team => team.team != toBeRemovedTeamName);
+    team => team.team !== toBeRemovedTeamName);
 
 }
 
@@ -73,7 +74,7 @@ function createNewTeamPool(sourceTeamPools, scheduleName) {
 
   }
 
-  addNewPoolInTeamPool(newTeamPools);
+  //addNewPoolInTeamPool(newTeamPools);
 
   return newTeamPools;
 }

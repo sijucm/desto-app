@@ -28,6 +28,7 @@ const matchesToPlay_5TeamPools = {
     ts9: { f5: [0, 1] }
   }
 }
+// eslint-disable-next-line no-unused-vars
 const timeSlots_regular =
     {
       ts1: '09:40', ts2: '09:56', ts3: '10:12',
@@ -48,10 +49,9 @@ const fields = {f1: '4A', f2: '4B', f3: '4C', f4: '4D', f5:'2A', f6:'2B'};
 
 const timeSlots =
     {
-      ts1: '08:30', ts2: '08:50', ts3: '09:10',
-      ts4: '09:45', ts5: '10:05', ts6: '10:25',
-      ts7: '10:45',ts8: '11:05', ts9: '11:25',
-      ts10: '11:45'
+      ts1: '08:25', ts2: '08:50', ts3: '09:15',
+      ts4: '09:40', ts5: '10:05', ts6: '10:30',
+      ts7: '10:55',ts8: '11:20', ts9: '11:45',
     };
 
 

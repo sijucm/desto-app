@@ -21,10 +21,10 @@ module.exports = async function (context, req, currentTeamPools) {
   }
 
 
-  // const nextScheduleName = "schedule"+(currentScheduleIdNumber + 1);
-   const nextScheduleName = "schedule14";
+  const nextScheduleName = "schedule"+(currentScheduleIdNumber + 1);
+   // const nextScheduleName = "schedule14";
 
-  const createFresh = true;
+  const createFresh = false;
   let newTeamPools ;
   if(! createFresh ) {
      newTeamPools = createNewTeamPool(currentTeamPools
@@ -32,6 +32,8 @@ module.exports = async function (context, req, currentTeamPools) {
   }else {
     newTeamPools = createNewTeamPoolFresh(nextScheduleName);
   }
+
+  console.log(JSON.stringify(newTeamPools));
 
   const newMatchData = createAllMatches(newTeamPools, nextScheduleName);
 
