@@ -66,11 +66,17 @@ module.exports = async function (context, req, matchData, teamPools) {
         body: _matchDataUpdated
       };
 
-      // triggering point calculation. This could be made asycn event later
+      try {
+       // triggering point calculation. This could be made asycn event later
       processPoints(poolName, _matchDataUpdated, teamPools);
       // updating the team pools here. This could be moved to another function.\
       // But just kept here for cheap performance/cost
       context.bindings.teamPoolsUpdate = teamPools;
+       
+      } catch (error) {
+        //for now doing nothing. Most important is to capture the scores
+        
+      }
 
     } else {
       context.res = {
