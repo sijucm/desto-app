@@ -1,6 +1,6 @@
 <template>
   <div class="card team-card">
-    <div class="card-body  pr-1 ">
+    <div class="card-body py-2 pr-1 ">
 
       <div class="container">
 

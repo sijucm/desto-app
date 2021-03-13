@@ -1,21 +1,10 @@
 <template>
   <div class="card team-card mt-2">
 
-    <h5 class="card-title mt-2 ml-2">Teams</h5>
+<!--    <h5 class="card-title mt-2 ml-2">Teams</h5>-->
 
-<!--    <div class="container">-->
-<!--      <div class="row">-->
-<!--        <div class="col" v-for="team in getPoolData(this.poolNumber)" :key="team.team">-->
-<!--            <team-view class="mt-2" :team="team"></team-view>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--    </div>-->
-
-          <ul class="list-group list-group-flush mt-2">
+          <ul class="list-group list-group-flush">
             <li class="list-group-item team-card p-0"  v-for="(team) in getPoolData(this.poolNumber)" :key="team.team">
-
-
               <team-view :icon="champion" :team="team"></team-view>
             </li>
           </ul>

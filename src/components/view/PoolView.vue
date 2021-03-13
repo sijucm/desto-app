@@ -3,7 +3,7 @@
   <div class="card mt-2" :class="'division-'+this.poolNumber">
     <!--    <img class="card-img-top" src="ss" alt="Card image cap">-->
     <div class="card-body">
-      <h4 class="card-title">{{ this.getPoolName(this.poolNumber)['divisionName'] }}</h4>
+<!--      <h4 class="card-title">{{ this.getPoolName(this.poolNumber)['divisionName'] }}</h4>-->
       <h5 class="card-subtitle">{{ this.getPoolName(this.poolNumber)['subPoolName'] }}</h5>
       <div class="card-text">
 

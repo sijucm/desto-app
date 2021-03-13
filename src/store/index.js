@@ -15,10 +15,10 @@ export default new Vuex.Store({
     poolNames: {
       1: {divisionName: 'Premier League', subPoolName: 'Poule 1'},
       2: {divisionName: 'Premier League', subPoolName: 'Poule 2'},
-      3: {divisionName: 'Primera division', subPoolName: 'Poule 1'},
-      4: {divisionName: 'Primera division', subPoolName: 'Poule 2'},
-      5: {divisionName: 'Eredivisie', subPoolName: 'Poule 1'},
-      6: {divisionName: 'Eredivisie', subPoolName: 'Poule 2'},
+      3: {divisionName: 'Primera division', subPoolName: 'Poule 3'},
+      4: {divisionName: 'Primera division', subPoolName: 'Poule 4'},
+      5: {divisionName: 'Eredivisie', subPoolName: 'Poule 5'},
+      6: {divisionName: 'Eredivisie', subPoolName: 'Poule 6'},
     },
 
   },
@@ -58,7 +58,7 @@ export default new Vuex.Store({
       return rootGetters["matchSettings/getDefaultSelectedScheduleIndex"];
     }
 
-    
+
 
   },
   mutations: {
