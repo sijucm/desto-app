@@ -21,10 +21,10 @@ module.exports = async function (context, req, currentTeamPools) {
   }
 
 
-  const nextScheduleName = "schedule"+(currentScheduleIdNumber + 1);
-   // const nextScheduleName = "schedule14";
+  // const nextScheduleName = "schedule"+(currentScheduleIdNumber + 1);
+   const nextScheduleName = "schedule24";
 
-  const createFresh = false;
+  const createFresh = true;
   let newTeamPools ;
   if(! createFresh ) {
      newTeamPools = createNewTeamPool(currentTeamPools

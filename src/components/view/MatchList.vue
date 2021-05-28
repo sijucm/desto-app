@@ -1,7 +1,6 @@
 <template>
 
   <div class="card match-card">
-    <display-top-message></display-top-message>
     <ul v-show="showMatches" class="list-group list-group-flush">
       <li class="list-group-item match-card py-0 px-0" v-for="match in this.matches"
           :key="match.id">
@@ -35,11 +34,10 @@
 
 <script>
 import MatchView from "@/components/view/MatchView";
-import DisplayTopMessage from "@/components/view/DisplayTopMessage";
 
 export default {
   name: "MatchList",
-  components: {DisplayTopMessage, MatchView},
+  components: {MatchView},
   data() {
     return {
       showMatches: this.showToggleShowMatches ? false : true

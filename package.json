@@ -16,7 +16,8 @@
     "vue": "^2.6.12",
     "vue-i18n": "^8.17.3",
     "vue-router": "^3.2.0",
-    "vuex": "^3.4.0"
+    "vuex": "^3.4.0",
+    "@azure/cosmos": "^3.9.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.2.3",

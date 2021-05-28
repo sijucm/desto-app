@@ -1,5 +1,5 @@
 <template>
-  <p >  {{ this.$store.getters.getCurrentScheduleObject.message1}}</p>
+  <div class="pl-4" >  {{ this.$store.getters.getCurrentScheduleObject.message1}}</div>
 </template>
 
 <script>

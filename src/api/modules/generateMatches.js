@@ -25,15 +25,15 @@ const matchesToPlay_5TeamPools = {
     ts8: {f3: [1, 3], f4: [2, 4]},
   },
   pool5: {
-    ts9: { f5: [0, 1] }
+    ts9: {f5: [0, 1]}
   }
-}
+};
 // eslint-disable-next-line no-unused-vars
 const timeSlots_regular =
     {
       ts1: '09:40', ts2: '09:56', ts3: '10:12',
       ts4: '10:28', ts5: '10:44', ts6: '11:00',
-      ts7: '11:16',ts8: '11:32', ts9: '11:48',
+      ts7: '11:16', ts8: '11:32', ts9: '11:48',
     };
 
 // eslint-disable-next-line no-unused-vars
@@ -45,17 +45,16 @@ const timeSlots_5teams =
 
     };
 
-const fields = {f1: '4A', f2: '4B', f3: '4C', f4: '4D', f5:'2A', f6:'2B'};
+const fields = {f1: '4A', f2: '4B', f3: '4C', f4: '4D', f5: '2A', f6: '2B'};
 
 const timeSlots =
     {
       ts1: '08:25', ts2: '08:50', ts3: '09:15',
-      ts4: '09:40', ts5: '10:05', ts6: '10:30',
-      ts7: '10:55',ts8: '11:20', ts9: '11:45',
+      ts4: '09:40-10:00', ts5: '10:05-10:25', ts6: '10:30-10:50',
+      ts7: '10:55-11:15', ts8: '11:20-11:40', ts9: '11:45-12:05',
+      ts10: '09:40-09:52', ts11: '09:55-10:07', ts12: '10:10-10:22',
+      ts13: '10:25-10:37', ts14: '10:40-10:52'
     };
-
-
-
 
 const matchesToPlay = {
   pool1: {
@@ -76,16 +75,18 @@ const matchesToPlay = {
     ts6: {f1: [0, 1], f2: [2, 3]},
   },
   pool4: {
-    ts4: {f3: [0, 2], f4: [1, 3]},
-    ts5: {f3: [1, 2], f4: [0, 3]},
-    ts6: {f3: [0, 1], f4: [2, 3]},
+    ts10: {f3: [0, 1], f4: [2, 3]},
+    ts11: {f3: [0, 4], f4: [2, 1]},
+    ts12: {f3: [0, 3], f4: [1, 4]},
+    ts13: {f3: [0, 2], f4: [3, 4]},
+    ts14: {f3: [1, 3], f4: [2, 4]},
   },
   pool5: {
     ts1: {f5: [0, 2], f6: [1, 3]},
     ts2: {f5: [1, 2], f6: [0, 3]},
     ts3: {f5: [0, 1], f6: [2, 3]},
   },
-}
+};
 
 /*
 pool4: {
@@ -97,10 +98,15 @@ pool4: {
 
 function createMatch(poolName, timeSlotId, fieldId, teamList, teamIndexList) {
   const poolId = getPoolIdFromPoolName(poolName);
+  if (!teamList[teamIndexList[0]] || !teamList[teamIndexList[1]]) {
+    console.log(' teamList when empty ' + JSON.stringify(teamList));
+    console.log(' teamIndexList when empty ' + teamIndexList);
+    return undefined;
+  }
 
   return {
 
-    id: poolId + '-' + timeSlotId + "-" + fieldId,
+    id: poolId + '-' + timeSlotId + '-' + fieldId,
     field: fields[fieldId],
     time: timeSlots[timeSlotId],
     teams: [
@@ -124,7 +130,7 @@ function createMatchForPool(poolName, teams) {
 
     const matchesInTimeSlot = fieldsInTimeSlot.map(
         fieldId => createMatch(poolName, timeSlot, fieldId, teams,
-            matchesInTimeSlotConfig[fieldId]));
+            matchesInTimeSlotConfig[fieldId])).filter(d => d != undefined);
 
     matchList.push(...matchesInTimeSlot);
 
@@ -133,7 +139,7 @@ function createMatchForPool(poolName, teams) {
 }
 
 function createAllMatches(teamPools, scheduleName) {
-  const newMatchData = {"id": scheduleName};
+  const newMatchData = {'id': scheduleName};
 
   const listOfPools = Object.keys(teamPools.pools);
 
@@ -148,9 +154,8 @@ function createAllMatches(teamPools, scheduleName) {
 
 }
 
-
 function getPoolIdFromPoolName(poolName) {
-  return parseInt(poolName.replace(/pool/, ""));
+  return parseInt(poolName.replace(/pool/, ''));
 }
 
 module.exports = createAllMatches;
