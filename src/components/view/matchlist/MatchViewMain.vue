@@ -20,7 +20,7 @@
 
         </template>
         <template v-else>
-          <div class="col-4 score-a goals text-right pr-3"> {{
+          <div class="col-auto score-a goals text-right px-3"> {{
                match.time
             }}
           {{
